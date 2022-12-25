@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import { formatDate } from "../../lib";
+
 import userInfos from "../../utils/usersInfo.json";
 import { UserInfoT } from "../../interface/db/db.types";
 
@@ -8,11 +10,12 @@ import {
   DetailedItem,
   DetailedLivingPlace,
   DetailedWorkplace,
+  Button,
 } from "../Layouts";
 
 interface RegistrationDetailedType {}
 
-const RegistrationDetailed: React.FC<RegistrationDetailedType> = (props) => {
+const RegistrationDetailed: React.FC<RegistrationDetailedType> = () => {
   const { requestId } = useParams();
   const [user, setUser] = useState<UserInfoT | undefined>();
 
@@ -22,6 +25,10 @@ const RegistrationDetailed: React.FC<RegistrationDetailedType> = (props) => {
     info && setUser(info);
   }, [requestId]);
 
+  function calcAge(date = new Date("02-28-1996")): number {
+    return Math.abs(new Date(Date.now() - date.getTime()).getFullYear() - 1970);
+  }
+
   return (
     <div className="registration-detailed">
       {user && (
@@ -29,7 +36,20 @@ const RegistrationDetailed: React.FC<RegistrationDetailedType> = (props) => {
           <DetailedItem label="firstname" data={user.firstName} />
           <DetailedItem label="lastname" data={user.lastName} />
           <DetailedItem label="email" data={user.email} />
-          <DetailedItem label="birthdate" data={user.birthDate} />
+
+          <DetailedItem
+            label="birthdate"
+            data={
+              formatDate(
+                new Date(parseInt(user.birthDate)),
+                "verbal"
+              )?.toString() || ""
+            }
+          />
+          <DetailedItem
+            label="age"
+            data={`${calcAge(new Date(parseInt(user.birthDate)))} years old`}
+          />
           <DetailedItem label="gender" data={user.gender} />
           <DetailedLivingPlace
             label="from"
@@ -41,12 +61,11 @@ const RegistrationDetailed: React.FC<RegistrationDetailedType> = (props) => {
             city={user.currentLivingPlace.city}
             country={user.currentLivingPlace.country}
           />
-          <DetailedWorkplace
-            company={user.workplace.company}
-            position={user.workplace.position}
-            workingYears={user.workplace.workingYears}
-            description={user.workplace?.description}
-          />
+          <DetailedWorkplace workplace={user.workplace} className="last" />
+          <div className="btn-box">
+            <Button label="delete" task="delete" />
+            <Button label="aprove" />
+          </div>
         </>
       )}
     </div>

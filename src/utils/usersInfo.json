@@ -4,11 +4,15 @@
         "firstName": "john",
         "lastName": "russ",
         "email": "russ@io.com",
-        "birthDate": "825465600000",
+        "birthDate": "825494400000",
         "gender": "male",
         "currentLivingPlace": {
             "country": "georgia",
             "city": "tbilisi"
+        },
+        "from": {
+            "country": "georgia",
+            "city": "guria"
         },
         "workplace": {
             "company": "DevsForWorld",
@@ -17,11 +21,8 @@
             "workingYears": {
                 "from": "1489363200000",
                 "to": "1592265600000"
-            }
-        },
-        "from": {
-            "country": "georgia",
-            "city": "guria"
+            },
+            "_id": "6303b0f88e97079d31c41f99"
         }
     },
     {
@@ -32,8 +33,12 @@
         "birthDate": "650073600000",
         "gender": "male",
         "currentLivingPlace": {
-            "country": "georgia",
-            "city": "tbilisi"
+            "country": "USA",
+            "city": "california"
+        },
+        "from": {
+            "country": "USA",
+            "city": "michigan"
         },
         "workplace": {
             "company": "DevsForWorld",
@@ -42,11 +47,8 @@
             "workingYears": {
                 "from": "1489363200000",
                 "to": "1592265600000"
-            }
-        },
-        "from": {
-            "country": "georgia",
-            "city": "guria"
+            },
+            "_id": "6303b0f88e97079d31c41f99"
         }
     },
     {
@@ -55,10 +57,14 @@
         "lastName": "green",
         "email": "green@io.com",
         "gender": "female",
-        "birthDate": "",
+        "birthDate": "324460800000",
         "currentLivingPlace": {
-            "country": "georgia",
-            "city": "tbilisi"
+            "country": "england",
+            "city": "london"
+        },
+        "from": {
+            "country": "englan",
+            "city": "westham"
         },
         "workplace": {
             "company": "DevsForWorld",
@@ -67,11 +73,8 @@
             "workingYears": {
                 "from": "1489363200000",
                 "to": "1592265600000"
-            }
-        },
-        "from": {
-            "country": "georgia",
-            "city": "guria"
+            },
+            "_id": "6303b0f88e97079d31c41f99"
         }
     },
     {
@@ -80,10 +83,14 @@
         "lastName": "tribbiani ",
         "email": "joey@io.com",
         "gender": "male",
-        "birthDate": "",
+        "birthDate": "178009200000",
         "currentLivingPlace": {
-            "country": "georgia",
-            "city": "tbilisi"
+            "country": "italy",
+            "city": "lazio"
+        },
+        "from": {
+            "country": "italy",
+            "city": "rome"
         },
         "workplace": {
             "company": "DevsForWorld",
@@ -92,11 +99,8 @@
             "workingYears": {
                 "from": "1489363200000",
                 "to": "1592265600000"
-            }
-        },
-        "from": {
-            "country": "georgia",
-            "city": "guria"
+            },
+            "_id": "6303b0f88e97079d31c41f99"
         }
     },
     {
@@ -105,10 +109,14 @@
         "lastName": "bing",
         "email": "bing@io.com",
         "gender": "male",
-        "birthDate": "",
+        "birthDate": "91094400000",
         "currentLivingPlace": {
-            "country": "georgia",
-            "city": "tbilisi"
+            "country": "brazil",
+            "city": "rio"
+        },
+        "from": {
+            "country": "brazil",
+            "city": "santos"
         },
         "workplace": {
             "company": "DevsForWorld",
@@ -117,11 +125,8 @@
             "workingYears": {
                 "from": "1489363200000",
                 "to": "1592265600000"
-            }
-        },
-        "from": {
-            "country": "georgia",
-            "city": "guria"
+            },
+            "_id": "6303b0f88e97079d31c41f99"
         }
     },
     {
@@ -130,10 +135,14 @@
         "lastName": "buffay",
         "email": "buffay@io.com",
         "gender": "female",
-        "birthDate": "",
+        "birthDate": "237106800000",
         "currentLivingPlace": {
-            "country": "georgia",
-            "city": "tbilisi"
+            "country": "france",
+            "city": "paris"
+        },
+        "from": {
+            "country": "france",
+            "city": "nantes"
         },
         "workplace": {
             "company": "DevsForWorld",
@@ -142,11 +151,8 @@
             "workingYears": {
                 "from": "1489363200000",
                 "to": "1592265600000"
-            }
-        },
-        "from": {
-            "country": "georgia",
-            "city": "guria"
+            },
+            "_id": "6303b0f88e97079d31c41f99"
         }
     }
 ]

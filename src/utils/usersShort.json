@@ -5,7 +5,7 @@
         "lastName": "russ",
         "email": "russ@io.com",
         "userName": "john russ",
-        "birthDate": "825465600000",
+        "birthDate": "825494400000",
         "gender": "male"
     },
     {
@@ -23,8 +23,8 @@
         "lastName": "green",
         "email": "green@io.com",
         "userName": "rachel green",
-        "gender": "female",
-        "birthDate": ""
+        "birthDate": "324460800000",
+        "gender": "female"
     },
     {
         "_id": "632dbdb4110be9215f42c1dc",
@@ -32,8 +32,8 @@
         "lastName": "tribbiani ",
         "email": "joey@io.com",
         "userName": "joey tribbiani ",
-        "gender": "male",
-        "birthDate": ""
+        "birthDate": "178009200000",
+        "gender": "male"
     },
     {
         "_id": "632dbe31110be9215f42c1de",
@@ -41,8 +41,8 @@
         "lastName": "bing",
         "email": "bing@io.com",
         "userName": "chandler bing",
-        "gender": "male",
-        "birthDate": ""
+        "birthDate": "91094400000",
+        "gender": "male"
     },
     {
         "_id": "632dbe9253104193ff6abb7d",
@@ -50,7 +50,7 @@
         "lastName": "buffay",
         "email": "buffay@io.com",
         "userName": "phoebe buffay",
-        "gender": "female",
-        "birthDate": ""
+        "birthDate": "237106800000",
+        "gender": "female"
     }
 ]

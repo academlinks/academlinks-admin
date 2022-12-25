@@ -8,6 +8,10 @@
     "createdAt": "1660661652108",
     "updatedAt": "1670795669446",
     "birthDate": "825465600000",
+    "gender": "male",
+    "profileImg": "http://localhost:4000/user-62fbaf941fffa1f725217953-1663680406023--original.webp",
+    "coverImg": "http://localhost:4000/user-62fbaf941fffa1f725217953-1663680982493--original.webp",
+    "role": "user",
     "education": [
       {
         "collage": "ITVET",
@@ -36,6 +40,10 @@
       "country": "georgia",
       "city": "tbilisi"
     },
+    "from": {
+      "country": "georgia",
+      "city": "guria"
+    },
     "workplace": [
       {
         "company": "DevsForWorld",
@@ -57,15 +65,7 @@
         },
         "_id": "6303b13d8e97079d31c41f9c"
       }
-    ],
-    "gender": "male",
-    "from": {
-      "country": "georgia",
-      "city": "guria"
-    },
-    "profileImg": "http://localhost:4000/user-62fbaf941fffa1f725217953-1663680406023--original.webp",
-    "coverImg": "http://localhost:4000/user-62fbaf941fffa1f725217953-1663680982493--original.webp",
-    "role": "user"
+    ]
   },
   {
     "_id": "63022fd21afbedd194623296",
@@ -76,6 +76,18 @@
     "birthDate": "650073600000",
     "createdAt": "1661087698633",
     "updatedAt": "1670696348860",
+    "gender": "male",
+    "role": "user",
+    "profileImg": "http://localhost:4000/user-63022fd21afbedd194623296-1663694517041--original.webp",
+    "coverImg": "http://localhost:4000/avatars/cover-default.webp",
+    "currentLivingPlace": {
+      "country": "USA",
+      "city": "california"
+    },
+    "from": {
+      "country": "USA",
+      "city": "michigan"
+    },
     "education": [
       {
         "collage": "tsu",
@@ -88,19 +100,7 @@
         "_id": "6330c33c18d848dd1c604cc8"
       }
     ],
-    "profileImg": "http://localhost:4000/user-63022fd21afbedd194623296-1663694517041--original.webp",
-    "coverImg": "http://localhost:4000/avatars/cover-default.webp",
-    "bookmarks": [],
-   
-    "workplace": [
-      {
-        "company": "tsu",
-        "position": "bachelor",
-        "_id": "6330c28618d848dd1c604cb6"
-      }
-    ],
-    "gender": "male",
-    "role": "user"
+    "workplace": []
   },
   {
     "_id": "631f3f37e1043edf72f371ff",
@@ -108,14 +108,34 @@
     "lastName": "green",
     "email": "green@io.com",
     "userName": "rachel green",
-    "profileImg": "http://localhost:4000/user-631f3f37e1043edf72f371ff-1663694560844--original.webp",
-    "coverImg": "http://localhost:4000/user-631f3f37e1043edf72f371ff-1663931796051--original.webp",
-    "workplace": [],
-    "education": [],
+    "birthDate": "324460800000",
     "createdAt": "1662992183706",
     "updatedAt": "1670699374622",
-    "bookmarks": [],
-    "role": "user"
+    "role": "user",
+    "gender": "female",
+    "profileImg": "http://localhost:4000/user-631f3f37e1043edf72f371ff-1663694560844--original.webp",
+    "coverImg": "http://localhost:4000/user-631f3f37e1043edf72f371ff-1663931796051--original.webp",
+    "currentLivingPlace": {
+      "country": "england",
+      "city": "london"
+    },
+    "from": {
+      "country": "englan",
+      "city": "westham"
+    },
+    "workplace": [
+      {
+        "company": "DevsForWorld",
+        "position": "frontend-developer",
+        "description": "great 3 year experience",
+        "workingYears": {
+          "from": "1489363200000",
+          "to": "1592265600000"
+        },
+        "_id": "6303b0f88e97079d31c41f99"
+      }
+    ],
+    "education": []
   },
   {
     "_id": "632dbdb4110be9215f42c1dc",
@@ -123,14 +143,34 @@
     "lastName": "tribbiani ",
     "email": "joey@io.com",
     "userName": "joey tribbiani ",
-    "profileImg": "http://localhost:4000/user-632dbdb4110be9215f42c1dc-1663942843893--original.webp",
-    "coverImg": "http://localhost:4000/avatars/cover-default.webp",
-    "bookmarks": [],
-    "workplace": [],
-    "education": [],
+    "birthDate": "178009200000",
     "createdAt": "1663942068502",
     "updatedAt": "1670696348860",
-    "role": "user"
+    "role": "user",
+    "gender": "male",
+    "profileImg": "http://localhost:4000/user-632dbdb4110be9215f42c1dc-1663942843893--original.webp",
+    "coverImg": "http://localhost:4000/avatars/cover-default.webp",
+    "currentLivingPlace": {
+      "country": "italy",
+      "city": "lazio"
+    },
+    "from": {
+      "country": "italy",
+      "city": "rome"
+    },
+    "workplace": [
+      {
+        "company": "DevsForWorld",
+        "position": "frontend-developer",
+        "description": "great 3 year experience",
+        "workingYears": {
+          "from": "1489363200000",
+          "to": "1592265600000"
+        },
+        "_id": "6303b0f88e97079d31c41f99"
+      }
+    ],
+    "education": []
   },
   {
     "_id": "632dbe31110be9215f42c1de",
@@ -138,14 +178,34 @@
     "lastName": "bing",
     "email": "bing@io.com",
     "userName": "chandler bing",
-    "profileImg": "http://localhost:4000/user-632dbe31110be9215f42c1de-1663942679389--original.webp",
-    "coverImg": "http://localhost:4000/avatars/cover-default.webp",
-    "bookmarks": [],
-    "workplace": [],
-    "education": [],
+    "birthDate": "91094400000",
     "createdAt": "1663942193036",
     "updatedAt": "1670696348860",
-    "role": "user"
+    "role": "user",
+    "gender": "male",
+    "profileImg": "http://localhost:4000/user-632dbe31110be9215f42c1de-1663942679389--original.webp",
+    "coverImg": "http://localhost:4000/avatars/cover-default.webp",
+    "currentLivingPlace": {
+      "country": "brazil",
+      "city": "rio"
+    },
+    "from": {
+      "country": "brazil",
+      "city": "santos"
+    },
+    "workplace": [
+      {
+        "company": "DevsForWorld",
+        "position": "frontend-developer",
+        "description": "great 3 year experience",
+        "workingYears": {
+          "from": "1489363200000",
+          "to": "1592265600000"
+        },
+        "_id": "6303b0f88e97079d31c41f99"
+      }
+    ],
+    "education": []
   },
   {
     "_id": "632dbe9253104193ff6abb7d",
@@ -153,13 +213,33 @@
     "lastName": "buffay",
     "email": "buffay@io.com",
     "userName": "phoebe buffay",
-    "profileImg": "http://localhost:4000/user-632dbe9253104193ff6abb7d-1663942909450--original.webp",
-    "coverImg": "http://localhost:4000/avatars/cover-default.webp",
-    "bookmarks": [],
-    "workplace": [],
-    "education": [],
+    "birthDate": "237106800000",
     "createdAt": "1663942290047",
     "updatedAt": "1670696348860",
-    "role": "user"
+    "role": "user",
+    "gender": "female",
+    "profileImg": "http://localhost:4000/user-632dbe9253104193ff6abb7d-1663942909450--original.webp",
+    "coverImg": "http://localhost:4000/avatars/cover-default.webp",
+    "currentLivingPlace": {
+      "country": "france",
+      "city": "paris"
+    },
+    "from": {
+      "country": "france",
+      "city": "nantes"
+    },
+    "workplace": [
+      {
+        "company": "DevsForWorld",
+        "position": "frontend-developer",
+        "description": "great 3 year experience",
+        "workingYears": {
+          "from": "1489363200000",
+          "to": "1592265600000"
+        },
+        "_id": "6303b0f88e97079d31c41f99"
+      }
+    ],
+    "education": []
   }
 ]

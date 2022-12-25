@@ -6,7 +6,7 @@ export interface UserBaseT {
   createdAt: string;
   updatedAt: string;
   userName: string;
-  education: Education[];
+  education?: EducationT[];
   birthDate: string;
   currentLivingPlace: LivingPlaceT;
   workplace: WorkplaceT[];
@@ -42,10 +42,10 @@ export interface UserInfoT {
 // Nested
 export interface WorkplaceT {
   company: string;
-  position: string;
+  position?: string;
   description?: string;
-  workingYears: Years;
-  _id?: string;
+  workingYears?: YearsT;
+  _id: string;
 }
 
 export interface LivingPlaceT {
@@ -53,16 +53,16 @@ export interface LivingPlaceT {
   city: string;
 }
 
-interface Education {
+export interface EducationT {
   collage: string;
-  faculty: string;
-  degree: string;
+  faculty?: string;
+  degree?: string;
   description?: string;
-  years: Years;
+  years?: YearsT;
   _id: string;
 }
 
-interface Years {
+interface YearsT {
   from: string;
   to: string;
 }

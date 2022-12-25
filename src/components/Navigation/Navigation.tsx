@@ -16,7 +16,7 @@ const navRoutes = [
   {
     label: "users",
     id: nanoid(),
-    path: "/",
+    path: "/users",
   },
 ];
 

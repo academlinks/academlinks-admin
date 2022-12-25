@@ -4,6 +4,7 @@ export const LayoutContainer = styled.section`
   height: 100vh;
   display: flex;
   flex-direction: row;
+  overflow: hidden;
 
   [data-page-navigation] {
     flex: 1;
@@ -14,8 +15,7 @@ export const LayoutContainer = styled.section`
     flex: 5;
   }
 
-  [data-page-navigation],
-  [data-content-container] {
+  [data-page-navigation] {
     padding: 1rem;
   }
 `;

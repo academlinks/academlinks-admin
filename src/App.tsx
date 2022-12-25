@@ -4,12 +4,15 @@ import Page from "./pages/Page";
 import RegistrationRequestsPage from "./pages/RegistrationRequests/RegistrationRequestsPage";
 import RegistrationDetailedPage from "./pages/RegistrationRequests/RegistrationDetailedPage";
 import UsersPage from "./pages/Users/UsersPage";
+import UserDetailsPage from "./pages/Users/UserDetailsPage";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Page />}>
-        <Route index element={<UsersPage />} />
+        <Route path="/users" element={<UsersPage />}>
+          <Route path=":userId" element={<UserDetailsPage />} />
+        </Route>
         <Route
           path="/registration-requests"
           element={<RegistrationRequestsPage />}
