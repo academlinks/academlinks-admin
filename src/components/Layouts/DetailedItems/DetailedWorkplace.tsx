@@ -4,7 +4,7 @@ import { formatDate } from "../../../lib";
 
 import { DetailedItemContainer } from "./detailedItem.styles";
 
-import { WorkplaceT } from "../../../interface/db/db.types";
+import { WorkplaceT } from "../../../interface/db/crossOver.types";
 interface DetailedWorkplaceType {
   className?: string;
   icon?: React.ReactNode;

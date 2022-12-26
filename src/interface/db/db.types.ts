@@ -19,10 +19,10 @@ export interface UserBaseT {
 
 export interface UserShortT {
   _id: string;
+  userName: string;
   firstName: string;
   lastName: string;
   email: string;
-  userName: string;
   gender: string;
   birthDate: string;
 }

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { linkHover } from "../../styles/helpers";
 
 export const Nav = styled.nav`
+  max-width: 30rem;
   text-transform: capitalize;
   border-right: 1px solid
     ${({ theme }) =>

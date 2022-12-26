@@ -6,15 +6,27 @@ interface BTNType {
   primary?: boolean;
   label: string;
   task?: TaskT;
+  className?: string;
+  type?: "submit" | "button";
 }
 
 export type TaskT = "cancel" | "delete" | "aprove";
 
-const BTN: React.FC<BTNType> = ({ primary = true, label, task = "aprove" }) => {
+const BTN: React.FC<BTNType> = ({
+  type = "button",
+  primary = true,
+  label,
+  task = "aprove",
+  className,
+}) => {
   return primary ? (
-    <Button task={task}>{label}</Button>
+    <Button task={task} type={type} className={className || ""}>
+      {label}
+    </Button>
   ) : (
-    <Button task={task}>{label}</Button>
+    <Button task={task} type={type} className={className || ""}>
+      {label}
+    </Button>
   );
 };
 

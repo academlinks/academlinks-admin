@@ -26,12 +26,16 @@ export const AppStyles = createGlobalStyle`
       color:inherit;
     }
 
+    input,
     button{
-      background: none;
       color:inherit;
       font-size: inherit;
       border: none;
       outline: none;
       cursor: pointer;
+    }
+    
+    button{
+      background: none;
     }
 `;

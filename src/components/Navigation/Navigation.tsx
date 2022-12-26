@@ -11,12 +11,12 @@ const navRoutes = [
   {
     label: "registration requests",
     id: nanoid(),
-    path: "/registration-requests",
+    path: "registration-requests",
   },
   {
     label: "users",
     id: nanoid(),
-    path: "/users",
+    path: "users",
   },
 ];
 

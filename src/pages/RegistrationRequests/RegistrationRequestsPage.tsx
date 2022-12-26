@@ -1,15 +1,21 @@
-import React from "react";
-import { Outlet, useParams } from "react-router-dom";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from "react";
+import { Outlet } from "react-router-dom";
+
+import { useRegistrationQueries } from "../../hooks";
 
 import RegistrationRequests from "../../components/RegistrationRequests/RegistrationRequests";
-import RegistrationDetailed from "../../components/RegistrationRequests/RegistrationDetailed";
 
 const RegistrationRequestsPage: React.FC = () => {
-  const { requestId } = useParams();
+  const { getRegistrationLabelsQuery } = useRegistrationQueries();
+
+  useEffect(() => {
+    getRegistrationLabelsQuery();
+  }, []);
+
   return (
     <RegistrationRequests>
-      {requestId && <Outlet />}
-      {!requestId && <RegistrationDetailed />}
+      <Outlet />
     </RegistrationRequests>
   );
 };
