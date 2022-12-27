@@ -34,6 +34,7 @@ declare module "styled-components" {
   }
 
   interface FontSize {
+    lg: "2.6rem";
     big: "2rem";
     base: "1.6rem";
     sm: "1.4rem";

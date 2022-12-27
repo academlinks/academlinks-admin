@@ -4,19 +4,36 @@ export const RegistrationRequestsContainer = styled.article`
   display: flex;
   flex-direction: row;
 
-  .requests-list {
-    width: 28rem;
+  .side_bar {
     display: flex;
     flex-direction: column;
-    gap: ${({ theme }) => theme.spacers.md};
     border-right: 1px solid
       ${({ theme }) =>
         theme.mode === "dark" ? theme.colors.redShade : theme.colors.darkGray};
     padding: ${({ theme }) => theme.spacers.big};
   }
 
-  .registration-detailed {
+  .fillter-btns--box {
+    display: flex;
+    justify-content: flex-start;
+    gap: 2rem;
+    padding: 2rem 0;
+  }
+
+  .requests-list {
+    width: 28rem;
+    display: flex;
+    flex-direction: column;
+    gap: ${({ theme }) => theme.spacers.md};
+  }
+
+  .registration-detailed__wrapper {
     flex: 3;
+    position: relative;
+  }
+
+  .registration-detailed {
+    width: 100%;
     padding: 1rem;
     display: flex;
     flex-direction: column;

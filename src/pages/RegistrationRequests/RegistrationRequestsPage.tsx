@@ -2,16 +2,20 @@
 import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 
-import { useRegistrationQueries } from "../../hooks";
+import { useAppSelector } from "../../store/hooks";
+import { useRegistrationQuery } from "../../hooks";
+import { selectRegistrationFilterKey } from "../../store/selectors/registrationSelectors";
 
 import RegistrationRequests from "../../components/RegistrationRequests/RegistrationRequests";
 
 const RegistrationRequestsPage: React.FC = () => {
-  const { getRegistrationLabelsQuery } = useRegistrationQueries();
+  const filterKey = useAppSelector(selectRegistrationFilterKey);
+
+  const { getRegistrationLabelsQuery } = useRegistrationQuery();
 
   useEffect(() => {
-    getRegistrationLabelsQuery();
-  }, []);
+    getRegistrationLabelsQuery(filterKey);
+  }, [filterKey]);
 
   return (
     <RegistrationRequests>

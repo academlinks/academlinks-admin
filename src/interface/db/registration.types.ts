@@ -9,7 +9,9 @@ export interface RegistrationLabelsT {
 
 export interface RegistrationRequestDetailsT {
   _id: string;
+  aproved: boolean;
   email: string;
+  userName: string;
   firstName: string;
   lastName: string;
   birthDate: string;
@@ -17,6 +19,4 @@ export interface RegistrationRequestDetailsT {
   currentLivingPlace: LivingPlaceT;
   from: LivingPlaceT;
   workplace: WorkplaceT;
-  aproved: boolean;
-  userName: string;
 }

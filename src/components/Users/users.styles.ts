@@ -5,18 +5,35 @@ export const UsersContainer = styled.article`
   display: flex;
   flex-direction: row;
 
-  .users-list {
-    width: 28rem;
+  .users-aside {
+    width: 30rem;
     display: flex;
     flex-direction: column;
-    gap: ${({ theme }) => theme.spacers.md};
+    gap: 1rem;
     border-right: 1px solid
       ${({ theme }) =>
         theme.mode === "dark" ? theme.colors.redShade : theme.colors.darkGray};
     padding: ${({ theme }) => theme.spacers.big};
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  
+  .users-list {
+    display: flex;
+    flex-direction: column;
+    gap: ${({ theme }) => theme.spacers.md};
+    padding-right: 1rem;
+    max-height: calc(100vh - 20rem);
+    min-height: 30rem;
+    overflow: auto;
+    ${scrollBar}
   }
 
   .users-content--box {
+    position: relative;
     padding: 1rem;
     flex: 1;
   }
@@ -76,6 +93,7 @@ export const UsersContainer = styled.article`
         display: inline-block;
         margin-bottom: 1rem;
         text-transform: capitalize;
+        font-weight: ${({ theme }) => theme.font.medium};
       }
 
       &__education,

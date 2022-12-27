@@ -1,19 +1,24 @@
 import React from "react";
 
 import { useAppSelector } from "../../../store/hooks";
+import {
+  selectRegistrationLabels,
+  selectRegistrationLabelsState,
+} from "../../../store/selectors/registrationSelectors";
 
-import { ListedUser } from "../../Layouts";
+import { ListedUser, Spinner } from "../../Layouts";
 
 interface RequestsListType {}
 
 const RequestsList: React.FC<RequestsListType> = (props) => {
-  const requests = useAppSelector(
-    (state) => state.registration.registrationLabels
-  );
+  const requests = useAppSelector(selectRegistrationLabels);
+  const { loading, error } = useAppSelector(selectRegistrationLabelsState);
 
   return (
     <div className="requests-list">
-      {requests[0] &&
+      {loading && <Spinner />}
+      {!loading &&
+        !error &&
         requests.map((user) => (
           <ListedUser
             key={user._id}

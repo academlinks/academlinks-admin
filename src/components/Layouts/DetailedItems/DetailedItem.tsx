@@ -4,7 +4,7 @@ import { DetailedItemContainer } from "./detailedItem.styles";
 
 interface DetailedItemType {
   label: string;
-  data: string;
+  data?: string;
   icon?: React.ReactNode;
 }
 

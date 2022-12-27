@@ -19,7 +19,8 @@ export const Button = styled.button<{ task: TaskT }>`
             : theme.colors.lightGray
         }`};
 
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme, task }) =>
+    task === "cancel" ? theme.colors.darkLightGray : theme.colors.white};
 
   padding: 0.75rem 1.5rem;
   text-transform: capitalize;

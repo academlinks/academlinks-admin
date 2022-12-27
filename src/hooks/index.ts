@@ -1,2 +1,3 @@
 export { default as useAuthQuery } from "./api/useAuthQuery";
-export { default as useRegistrationQueries } from "./api/useRegistrationQueries";
+export { default as useRegistrationQuery } from "./api/useRegistrationQuery";
+export { default as useUsersQuery } from "./api/useUsersQuery";

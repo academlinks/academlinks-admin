@@ -3,7 +3,7 @@ import React from "react";
 import { DetailedItemContainer } from "./detailedItem.styles";
 
 import { formatDate } from "../../../lib";
-import { EducationT } from "../../../interface/db/db.types";
+import { EducationT } from "../../../interface/db/crossOver.types";
 interface DetailedEducationType {
   className?: string;
   icon?: React.ReactNode;
@@ -22,26 +22,26 @@ const DetailedEducationItem: React.FC<DetailedEducationType> = ({
     >
       {icon && <span className="icon-box">{icon}</span>}
       <div className="details-wrapper">
-        <span>studied in</span> <strong>{education.collage}</strong>{" "}
-        {education.faculty && (
+        <span>studied in</span> <strong>{education?.collage}</strong>{" "}
+        {education?.faculty && (
           <>
             <span>at </span>
             <strong>{education.faculty}</strong> <span>faculty</span>{" "}
           </>
         )}
-        {education.degree && (
+        {education?.degree && (
           <>
             <span>as</span> <strong>{education.degree}</strong>
           </>
         )}
-        {education.years && (
+        {education?.years && (
           <>
             {education.years.from && (
               <>
                 <span>from</span>{" "}
                 <strong>
                   {formatDate(
-                    new Date(parseInt(education.years?.from || "")),
+                    new Date(parseInt(education.years.from || "")),
                     "verbal"
                   )}
                 </strong>
@@ -52,7 +52,7 @@ const DetailedEducationItem: React.FC<DetailedEducationType> = ({
                 <span>to</span>{" "}
                 <strong>
                   {formatDate(
-                    new Date(parseInt(education.years?.to || "")),
+                    new Date(parseInt(education.years.to || "")),
                     "verbal"
                   )}
                 </strong>
@@ -60,7 +60,7 @@ const DetailedEducationItem: React.FC<DetailedEducationType> = ({
             )}
           </>
         )}
-        {education.description && (
+        {education?.description && (
           <p className="description">
             <span>description - </span>
             <span>{education.description}</span>

@@ -1,16 +1,27 @@
+export interface LivingPlaceT {
+  city: string;
+  country: string;
+  _id: string;
+}
+
+export interface YearsT {
+  from?: string;
+  to?: string;
+}
+
 export interface WorkplaceT {
   _id: string;
   company: string;
   position?: string;
   description?: string;
-  workingYears?: {
-    from?: string;
-    to?: string;
-  };
+  workingYears?: YearsT;
 }
 
-export interface LivingPlaceT {
-  city: string;
-  country: string;
+export interface EducationT {
+  years?: YearsT;
+  collage: string;
+  faculty: string;
+  degree: string;
+  description: string;
   _id: string;
 }

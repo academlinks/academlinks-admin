@@ -1,9 +1,12 @@
 import { axiosQuery } from "../../axiosConfig";
 
-import { GetRegistrationRequestDetailsPropsT } from "../../../interface/reducers/registrationReducer.types";
+import {
+  GetRegistrationRequestDetailsPropsT,
+  FilterKeyT,
+} from "../../../interface/reducers/registrationReducer.types";
 
-export async function getRegistrationLabelsQuery() {
-  return await axiosQuery("/administration/label/registrations");
+export async function getRegistrationLabelsQuery(key: FilterKeyT) {
+  return await axiosQuery(`/administration/label/registrations?filter=${key}`);
 }
 
 export async function getRegistrationRequestDetailsQuery({

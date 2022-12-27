@@ -25,6 +25,7 @@ export const BaseTheme: DefaultTheme = {
   },
 
   fontSizes: {
+    lg: "2.6rem",
     big: "2rem",
     base: "1.6rem",
     sm: "1.4rem",
