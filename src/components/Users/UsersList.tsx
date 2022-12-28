@@ -16,8 +16,8 @@ const UsersList: React.FC = () => {
 
   return (
     <aside className="users-aside">
-      {loading && <Spinner />}
       <FillterBox />
+      {loading && <Spinner />}
       {!loading && !error && (
         <div className="users-list">
           {users.map((user, i) => (

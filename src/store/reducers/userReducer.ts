@@ -4,11 +4,13 @@ import {
   GetUserLabelPropsT,
   GetUserDetailsPropsT,
   FilterT,
+  LocaleFilterT,
   FilterLivingPlaceT,
-  FilterBirthDate,
+  FilterBirthDateT,
   FilterGenderT,
   FilterRegistrationT,
   FilterSortT,
+  FilterPositionT,
 } from "../../interface/reducers/usersReducer.types";
 import { UserDetailsT, UserLabelT } from "../../interface/db/users.types";
 
@@ -24,6 +26,7 @@ interface StateT {
   users: UserLabelT[];
   userDetails: UserDetailsT;
   filter: FilterT;
+  localeFilter: LocaleFilterT;
 }
 
 function updateLabelsLoadingState({
@@ -91,32 +94,8 @@ const initialState: StateT = {
     education: [],
     workplace: [],
   },
-  filter: {
-    gender: "default",
-    sort: "default",
-    livingPlace: {
-      from: {
-        country: "",
-        city: "",
-      },
-      current: {
-        country: "",
-        city: "",
-      },
-      target: "from",
-      nest: "country",
-    },
-    birthDate: {
-      from: "",
-      to: "",
-      target: "from",
-    },
-    registration: {
-      from: "",
-      to: "",
-      target: "from",
-    },
-  },
+  filter: {},
+  localeFilter: {},
 };
 
 const usersSlice = createSlice({
@@ -161,6 +140,10 @@ const usersSlice = createSlice({
     },
 
     // filter
+    resetFilter(state) {
+      state.filter = {};
+    },
+
     setFilterByLivingPlace(
       state,
       { payload }: PayloadAction<FilterLivingPlaceT>
@@ -191,7 +174,7 @@ const usersSlice = createSlice({
       };
     },
 
-    setFilterByBirthdate(state, { payload }: PayloadAction<FilterBirthDate>) {
+    setFilterByBirthdate(state, { payload }: PayloadAction<FilterBirthDateT>) {
       const { target } = payload;
 
       state.filter.birthDate = {
@@ -201,12 +184,25 @@ const usersSlice = createSlice({
       };
     },
 
+    setFilterPosition(state, { payload }: PayloadAction<FilterPositionT>) {
+      if (state.filter.position === payload) state.filter.position = "default";
+      else state.filter.position = payload;
+    },
+
+    resetLocaleFilter(state) {
+      state.localeFilter = {};
+    },
+
     setFilterByGender(state, { payload }: PayloadAction<FilterGenderT>) {
-      state.filter.gender = payload;
+      if (state.localeFilter.gender === payload)
+        state.localeFilter.gender = "default";
+      else state.localeFilter.gender = payload;
     },
 
     setSort(state, { payload }: PayloadAction<FilterSortT>) {
-      state.filter.sort = payload;
+      if (state.localeFilter.sort === payload)
+        state.localeFilter.sort = "default";
+      else state.localeFilter.sort = payload;
     },
   },
 });
@@ -220,9 +216,12 @@ export const {
   getUserDetails,
   setUserDetails,
   // filter
+  resetFilter,
+  resetLocaleFilter,
   setFilterByLivingPlace,
   setFilterByRegistration,
   setFilterByBirthdate,
+  setFilterPosition,
   setFilterByGender,
   setSort,
 } = usersSlice.actions;

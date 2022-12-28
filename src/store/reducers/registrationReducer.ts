@@ -48,7 +48,6 @@ const initialState: StateT = {
     lastName: "",
     userName: "",
     gender: "",
-    birthDate: "",
     email: "",
     currentLivingPlace: {
       _id: "",
@@ -60,15 +59,11 @@ const initialState: StateT = {
       city: "",
       country: "",
     },
-    workplace: {
+    registrationBio: {
       _id: "",
-      company: "",
-      description: "",
       position: "",
-      workingYears: {
-        from: "",
-        to: "",
-      },
+      description: "",
+      institution: "",
     },
   },
   redirectAlert: {

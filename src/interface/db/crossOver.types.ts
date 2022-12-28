@@ -11,7 +11,7 @@ export interface YearsT {
 
 export interface WorkplaceT {
   _id: string;
-  company: string;
+  institution: string;
   position?: string;
   description?: string;
   workingYears?: YearsT;

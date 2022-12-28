@@ -4,18 +4,9 @@ import {
   GetUserDetailsPropsT,
 } from "../../../interface/reducers/usersReducer.types";
 
-function createQuery(query: any) {
-  Object.keys(query)
-    .map((key) => `${key}=${query[key]}`)
-    .concat("&");
-}
-
-export async function getUserLabelsQuery(params: GetUserLabelPropsT) {
-  let reqQuery;
-  if (params.query) reqQuery = createQuery(params.query);
-
+export async function getUserLabelsQuery({ query }: GetUserLabelPropsT) {
   return await axiosQuery(
-    `/administration/label/users${params.query ? `?${reqQuery}` : ""}`
+    `/administration/label/users${query ? `?${query}` : ""}`
   );
 }
 

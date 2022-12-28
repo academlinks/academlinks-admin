@@ -24,7 +24,7 @@ const DetailedWorkplace: React.FC<DetailedWorkplaceType> = ({
       {icon && <span className="icon-box">{icon}</span>}
       <div className="details-wrapper">
         <span>works in</span>{" "}
-        <strong className="capitalize">{workplace.company}</strong>
+        <strong className="capitalize">{workplace.institution}</strong>
         {workplace.position && (
           <>
             <span>as</span> <strong>{workplace.position}</strong>

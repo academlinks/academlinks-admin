@@ -1,9 +1,12 @@
 import { useAppDispatch } from "../../store/hooks";
 
 import {
+  resetFilter,
+  resetLocaleFilter,
   setFilterByLivingPlace,
   setFilterByRegistration,
   setFilterByBirthdate,
+  setFilterPosition,
   setFilterByGender,
   setSort,
 } from "../../store/reducers/userReducer";
@@ -11,13 +14,22 @@ import {
 import {
   FilterLivingPlaceT,
   FilterRegistrationT,
-  FilterBirthDate,
+  FilterBirthDateT,
   FilterGenderT,
   FilterSortT,
+  FilterPositionT,
 } from "../../interface/reducers/usersReducer.types";
 
 export default function useUserFilter() {
   const dispatch = useAppDispatch();
+
+  function handleResetFilter() {
+    dispatch(resetFilter());
+  }
+
+  function handleResetLocaleFilter() {
+    dispatch(resetLocaleFilter());
+  }
 
   function filterByLivingPlace(params: FilterLivingPlaceT) {
     dispatch(setFilterByLivingPlace(params));
@@ -27,8 +39,12 @@ export default function useUserFilter() {
     dispatch(setFilterByRegistration(params));
   }
 
-  function filterByBirthDate(params: FilterBirthDate) {
+  function filterByBirthDate(params: FilterBirthDateT) {
     dispatch(setFilterByBirthdate(params));
+  }
+
+  function filterByPosition(params: FilterPositionT) {
+    dispatch(setFilterPosition(params));
   }
 
   function filterByGender(params: FilterGenderT) {
@@ -40,9 +56,12 @@ export default function useUserFilter() {
   }
 
   return {
+    handleResetFilter,
+    handleResetLocaleFilter,
     filterByLivingPlace,
     filterByRegistrationDate,
     filterByBirthDate,
+    filterByPosition,
     filterByGender,
     sortUser,
   };

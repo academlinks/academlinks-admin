@@ -63,6 +63,7 @@ export const TabContainer = styled.div`
       border-bottom-right-radius: ${MAIN_TAB_BTN_RADIUS};
     }
 
+    .position-btn,
     .gender-btn,
     .sort-btn {
       padding: 0.75rem 0;
@@ -72,6 +73,10 @@ export const TabContainer = styled.div`
       transition: all 0.2s;
 
       :hover {
+        background: ${({ theme }) => theme.colors.blueTint};
+      }
+
+      &.active {
         background: ${({ theme }) => theme.colors.blueTint};
       }
     }

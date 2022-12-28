@@ -1,4 +1,4 @@
-import { LivingPlaceT, WorkplaceT } from "./crossOver.types";
+import { LivingPlaceT } from "./crossOver.types";
 
 export interface RegistrationLabelsT {
   _id: string;
@@ -14,9 +14,15 @@ export interface RegistrationRequestDetailsT {
   userName: string;
   firstName: string;
   lastName: string;
-  birthDate: string;
   gender: string;
   currentLivingPlace: LivingPlaceT;
   from: LivingPlaceT;
-  workplace: WorkplaceT;
+  registrationBio: RegistrationBioT;
+}
+
+export interface RegistrationBioT {
+  _id: string;
+  institution: string;
+  position: string;
+  description: string;
 }
