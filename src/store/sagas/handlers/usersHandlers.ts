@@ -6,6 +6,7 @@ import {
   setContentError,
   setUserLabels,
   setUserDetails,
+  setDeletedUser,
 } from "../../reducers/userReducer";
 
 import { getUserLabelsQuery, getUserDetailsQuery } from "../api/usersQueries";
@@ -13,6 +14,7 @@ import { getUserLabelsQuery, getUserDetailsQuery } from "../api/usersQueries";
 import {
   GetUserLabelPropsT,
   GetUserDetailsPropsT,
+  DeleteUserPropsT,
 } from "../../../interface/reducers/usersReducer.types";
 
 export function* getUserLabelsHandler({
@@ -43,6 +45,25 @@ export function* getUserDetailsHandler({
   try {
     const { data } = yield call(getUserDetailsQuery, payload);
     yield put(setUserDetails(data));
+  } catch (error: any) {
+    showError({
+      error,
+      location: "getUserDetailsHandler",
+      setter: setContentError,
+      setterParams: {
+        message: errorMessages.load,
+      },
+    });
+  }
+}
+
+export function* deleteUserHandler({
+  payload: { userId },
+}: {
+  payload: DeleteUserPropsT;
+}) {
+  try {
+    yield put(setDeletedUser({ userId }));
   } catch (error: any) {
     showError({
       error,

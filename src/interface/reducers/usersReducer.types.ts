@@ -6,6 +6,10 @@ export interface GetUserDetailsPropsT {
   userId: string;
 }
 
+export interface DeleteUserPropsT {
+  userId: string;
+}
+
 // ==============================//
 // ========== Filter ========== //
 // ============================//
@@ -16,6 +20,7 @@ export interface FilterT {
   registration?: FilterRegistrationT;
   birthDate?: FilterBirthDateT;
   position?: FilterPositionT;
+  userName?: string;
 }
 
 // --> locale filter
@@ -30,7 +35,18 @@ export type FilterKeysT =
   | "birthdate"
   | "position"
   | "gender"
-  | "sort";
+  | "sort"
+  | "userName";
+
+export const TAB_KEYS = {
+  LIVING_PLACE: "livingPlace",
+  REGISTRATION: "registration",
+  BIRTHDATE: "birthDate",
+  POSITION: "position",
+  GENDER: "gender",
+  SORT: "sort",
+  USER_NAME: "userName",
+};
 
 export type FilterByDateTargetT = "from" | "to";
 export type FilterByLivingPlaceTargetT = "from" | "current";
@@ -77,11 +93,11 @@ export type FilterGenderT = "default" | "male" | "female";
 
 export type FilterSortT =
   | "default"
-  | "registrationDate"
+  | "createdAt"
   | "firstName"
   | "lastName"
   | "userName"
-  | "age"
+  | "birthDate"
   | "gender";
 
 // --> helpers (is used for map user filter buttons)
@@ -103,10 +119,10 @@ export const FilterGenderKeys = [
 
 export const FilterSortKeys = [
   { type: "default", label: "default" },
-  { type: "registrationDate", label: "registration date" },
+  { type: "createdAt", label: "registration date" },
   { type: "firstName", label: "first name" },
   { type: "lastName", label: "last name" },
-  { type: "userName", label: "usernmae" },
-  { type: "age", label: "age" },
+  { type: "userName", label: "username" },
+  { type: "birthDate", label: "age" },
   { type: "gender", label: "gender" },
 ];

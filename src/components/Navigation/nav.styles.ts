@@ -8,6 +8,17 @@ export const Nav = styled.nav`
     ${({ theme }) =>
       theme.mode === "dark" ? theme.colors.redShade : theme.colors.darkGray};
 
+  .nav-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-transform: capitalize;
+
+    .btn-logout {
+      font-size: ${({ theme }) => theme.fontSizes.sm};
+    }
+  }
+
   .theme-btn {
     margin-left: ${({ theme }) => theme.spacers.big};
     font-size: ${({ theme }) => theme.fontSizes.big};

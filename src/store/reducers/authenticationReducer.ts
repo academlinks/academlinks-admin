@@ -2,7 +2,9 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { AuthCredentialsT } from "../../interface/reducers/authReducer.types";
 
-const initialState = {};
+const initialState = {
+  isAuthenticated: false,
+};
 
 const authSlice = createSlice({
   name: "admin",
@@ -11,17 +13,20 @@ const authSlice = createSlice({
     login(_, { payload }: PayloadAction<AuthCredentialsT>) {},
 
     setAdmin(
-      _,
+      state,
       { payload: { accessToken } }: PayloadAction<{ accessToken: string }>
     ) {
       localStorage.setItem(
         "academind_admin_passport",
         JSON.stringify(accessToken)
       );
+
+      state.isAuthenticated = true;
     },
 
-    logOut() {
+    logOut(state) {
       localStorage.removeItem("academind_admin_passport");
+      state.isAuthenticated = false;
     },
   },
 });

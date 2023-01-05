@@ -1,6 +1,7 @@
 import React from "react";
 
 import { useAppSelector } from "../../store/hooks";
+import { useUsersQuery } from "../../hooks";
 import { selectUserDetails } from "../../store/selectors/userSelectors";
 import { formatDate } from "../../lib";
 
@@ -9,6 +10,7 @@ import {
   DetailedLivingPlace,
   DetailedWorkplace,
   DetailedEducationItem,
+  Button,
 } from "../Layouts";
 
 import {
@@ -24,6 +26,8 @@ import { BsFillBriefcaseFill } from "react-icons/bs";
 const UserDetails: React.FC = () => {
   const userDetails = useAppSelector(selectUserDetails);
 
+  const { deleteUserQuery } = useUsersQuery();
+
   return (
     <div className="user-details--container">
       {userDetails && (
@@ -36,6 +40,11 @@ const UserDetails: React.FC = () => {
               {userDetails.userName}
             </span>
             <span className="details-header__email">{userDetails.email}</span>
+            <Button
+              label="delete user"
+              task="delete"
+              onClick={() => deleteUserQuery({ userId: userDetails._id })}
+            />
           </div>
           <div className="details-info">
             <DetailedItem

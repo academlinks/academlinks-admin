@@ -21,7 +21,7 @@ interface ShalowT {
   };
 }
 
-export default function generateFilterQuery(params: FilterT): string {
+export function generateFilterQuery(params: FilterT): string {
   const shalow: ShalowT = { ...params };
   const queryArray = [];
   // ?currCity=tbilsi&currCountry=georgia&fromCity=paris&fromCountry=france&createdAt[gte]=01-20-2020&createdAt[lte]=01-20-2021&birthDate[gte]=01-20-2020&birthDate[lte]=01-20-2021
@@ -49,8 +49,16 @@ export default function generateFilterQuery(params: FilterT): string {
       value.to && queryArray.push(`birthDate[lte]=${value.to}`);
     }
 
-    if (key === "position") value && queryArray.push(`position=${value}`);
+    if (key === "position")
+      value && value !== "default" && queryArray.push(`position=${value}`);
+
+    if (key === "userName")
+      value && queryArray.push(`userName[regex]=${value}`);
   }
 
   return queryArray.join("&");
 }
+
+export function filterQueryByGender() {}
+
+export function sortQuery() {}

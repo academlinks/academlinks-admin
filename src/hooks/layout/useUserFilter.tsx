@@ -3,6 +3,7 @@ import { useAppDispatch } from "../../store/hooks";
 import {
   resetFilter,
   resetLocaleFilter,
+  setFilterByUserName,
   setFilterByLivingPlace,
   setFilterByRegistration,
   setFilterByBirthdate,
@@ -29,6 +30,10 @@ export default function useUserFilter() {
 
   function handleResetLocaleFilter() {
     dispatch(resetLocaleFilter());
+  }
+
+  function filterByUserName(params: string) {
+    dispatch(setFilterByUserName(params));
   }
 
   function filterByLivingPlace(params: FilterLivingPlaceT) {
@@ -58,6 +63,7 @@ export default function useUserFilter() {
   return {
     handleResetFilter,
     handleResetLocaleFilter,
+    filterByUserName,
     filterByLivingPlace,
     filterByRegistrationDate,
     filterByBirthDate,

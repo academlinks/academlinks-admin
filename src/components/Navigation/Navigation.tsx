@@ -4,6 +4,8 @@ import { ThemeContext } from "../../Theme";
 import { nanoid } from "@reduxjs/toolkit";
 import { NavLink } from "react-router-dom";
 
+import { useAuthQuery } from "../../hooks";
+
 import { Nav } from "./nav.styles";
 import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs";
 
@@ -22,12 +24,18 @@ const navRoutes = [
 
 const Navigation: React.FC = () => {
   const { changeThemeHandler, mode } = useContext(ThemeContext);
+  const { logoutQuery } = useAuthQuery();
 
   return (
     <Nav data-page-navigation>
-      <button className="theme-btn" onClick={() => changeThemeHandler()}>
-        {mode === "dark" ? <BsFillSunFill /> : <BsFillMoonFill />}
-      </button>
+      <div className="nav-header">
+        <button className="theme-btn" onClick={() => changeThemeHandler()}>
+          {mode === "dark" ? <BsFillSunFill /> : <BsFillMoonFill />}
+        </button>
+        <button className="btn-logout" onClick={logoutQuery}>
+          log out
+        </button>
+      </div>
       <ul className="nav-list">
         {navRoutes.map((route) => (
           <NavLink

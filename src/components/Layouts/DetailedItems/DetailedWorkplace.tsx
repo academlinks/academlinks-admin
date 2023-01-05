@@ -34,7 +34,7 @@ const DetailedWorkplace: React.FC<DetailedWorkplaceType> = ({
           <>
             {workplace.workingYears?.from && (
               <>
-                <span>from</span>{" "}
+                <span> from</span>{" "}
                 <strong>
                   {formatDate(
                     new Date(new Date(parseInt(workplace.workingYears.from))),
@@ -45,7 +45,7 @@ const DetailedWorkplace: React.FC<DetailedWorkplaceType> = ({
             )}
             {workplace.workingYears?.to && (
               <>
-                <span>to</span>{" "}
+                <span> to</span>{" "}
                 <strong>
                   {formatDate(
                     new Date(new Date(parseInt(workplace.workingYears.to))),

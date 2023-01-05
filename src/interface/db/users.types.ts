@@ -2,10 +2,14 @@ import { WorkplaceT, EducationT, LivingPlaceT } from "./crossOver.types";
 
 export interface UserLabelT {
   _id: string;
+  profileImg: string;
   email: string;
+  firstName: string;
+  lastName: string;
   userName: string;
   birthDate: string;
-  profileImg: string;
+  gender: "male" | "famale";
+  createdAt: string;
 }
 
 export interface UserDetailsT {

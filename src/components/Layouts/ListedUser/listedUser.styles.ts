@@ -11,8 +11,8 @@ export const ListedUserContainer = styled.div`
     overflow: hidden;
 
     &--fig {
-      width: 4rem;
-      height: 4rem;
+      width: 5rem;
+      height: 5rem;
       aspect-ratio: 1/1;
       border-radius: inherit;
       overflow: inherit;

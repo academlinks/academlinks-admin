@@ -37,5 +37,6 @@ export const AppStyles = createGlobalStyle`
     
     button{
       background: none;
+      text-transform: inherit;
     }
 `;

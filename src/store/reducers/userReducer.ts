@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   GetUserLabelPropsT,
   GetUserDetailsPropsT,
+  DeleteUserPropsT,
   FilterT,
   LocaleFilterT,
   FilterLivingPlaceT,
@@ -24,6 +25,11 @@ interface StateT {
   labelsLoadingState: LoadingStateT;
   contentLoadingState: LoadingStateT;
   users: UserLabelT[];
+  triggerGetNewUserDetails: {
+    getNew: boolean;
+    id: string;
+    isEmpty: boolean;
+  };
   userDetails: UserDetailsT;
   filter: FilterT;
   localeFilter: LocaleFilterT;
@@ -73,6 +79,12 @@ const initialState: StateT = {
     message: "",
   },
   users: [],
+
+  triggerGetNewUserDetails: {
+    getNew: false,
+    id: "",
+    isEmpty: false,
+  },
   userDetails: {
     _id: "",
     userName: "",
@@ -94,6 +106,7 @@ const initialState: StateT = {
     education: [],
     workplace: [],
   },
+
   filter: {},
   localeFilter: {},
 };
@@ -137,11 +150,56 @@ const usersSlice = createSlice({
     setUserDetails(state, { payload }: PayloadAction<UserDetailsT>) {
       state.userDetails = payload;
       updateContentLoadingState({ state, loading: false });
+
+      if (state.triggerGetNewUserDetails.getNew)
+        state.triggerGetNewUserDetails = {
+          getNew: false,
+          id: "",
+          isEmpty: false,
+        };
     },
 
-    // filter
+    deleteUser(_, { payload }: PayloadAction<DeleteUserPropsT>) {},
+
+    setDeletedUser(
+      state,
+      { payload: { userId } }: PayloadAction<DeleteUserPropsT>
+    ) {
+      const i = state.users.findIndex((user) => user._id === userId);
+
+      if (state.userDetails._id === userId) {
+        if (state.users.length > 1 && i !== 0)
+          state.triggerGetNewUserDetails = {
+            getNew: true,
+            id: state.users[i - 1]._id,
+            isEmpty: false,
+          };
+        else if (state.users.length > 1 && i === 0)
+          state.triggerGetNewUserDetails = {
+            getNew: true,
+            id: state.users[i + 1]._id,
+            isEmpty: false,
+          };
+        else if (state.users.length === 1)
+          state.triggerGetNewUserDetails = {
+            getNew: false,
+            id: "",
+            isEmpty: true,
+          };
+      }
+
+      state.users = state.users.filter((user) => user._id !== userId);
+    },
+
+    /////////////////////////////
+    ////////// filter //////////
+    ///////////////////////////
     resetFilter(state) {
       state.filter = {};
+    },
+
+    setFilterByUserName(state, { payload }: PayloadAction<string>) {
+      state.filter.userName = payload;
     },
 
     setFilterByLivingPlace(
@@ -215,9 +273,12 @@ export const {
   setUserLabels,
   getUserDetails,
   setUserDetails,
+  deleteUser,
+  setDeletedUser,
   // filter
   resetFilter,
   resetLocaleFilter,
+  setFilterByUserName,
   setFilterByLivingPlace,
   setFilterByRegistration,
   setFilterByBirthdate,

@@ -38,7 +38,7 @@ const DetailedEducationItem: React.FC<DetailedEducationType> = ({
           <>
             {education.years.from && (
               <>
-                <span>from</span>{" "}
+                <span> from</span>{" "}
                 <strong>
                   {formatDate(
                     new Date(parseInt(education.years.from || "")),

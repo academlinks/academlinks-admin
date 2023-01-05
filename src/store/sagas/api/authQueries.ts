@@ -6,4 +6,6 @@ export async function loginQuery({ userName, password }: AuthCredentialsT) {
   return await axiosQuery.post("/administration/login", { password, userName });
 }
 
-export async function logoutQuery() {}
+export async function logoutQuery() {
+  return await axiosQuery.post("/authentication/logout");
+}

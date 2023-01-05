@@ -192,6 +192,8 @@ const RegistrationSlice = createSlice({
       state.registrationLabels = [...state.registrationLabels].filter(
         (reg) => reg._id !== registrationId
       );
+
+      updateContentLoadingState({ state, loading: false });
     },
 
     resetRedirectAlert(state) {
@@ -201,9 +203,13 @@ const RegistrationSlice = createSlice({
       };
     },
 
-    aproveRequest(state, { payload }: PayloadAction<RequestMutationPropsT>) {},
+    aproveRequest(state, { payload }: PayloadAction<RequestMutationPropsT>) {
+      updateContentLoadingState({ state });
+    },
 
-    deleteRequest(state, { payload }: PayloadAction<RequestMutationPropsT>) {},
+    deleteRequest(state, { payload }: PayloadAction<RequestMutationPropsT>) {
+      updateContentLoadingState({ state });
+    },
   },
 });
 

@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useAppSelector } from "../../store/hooks";
 
-import { generateFilterQuery } from "../../lib";
+import { generateFilterQuery } from "../../lib/generateFilterQuery";
 import { useUserFilter, useUsersQuery } from "../../hooks";
+import {
+  selectUserDBFilter,
+  selectUsersLocaleFilter,
+} from "../../store/selectors/userSelectors";
 
 import {
+  TAB_KEYS,
   FilterKeysT,
   FilterPositionKeys,
   FilterPositionT,
@@ -17,15 +22,6 @@ import {
 import { FilterBoxContainer, TabContainer } from "./fillterBox.styles";
 import { Button } from "../Layouts";
 
-const TAB_KEYS = {
-  LIVING_PLACE: "livingPlace",
-  REGISTRATION: "registration",
-  BIRTHDATE: "birthDate",
-  POSITION: "position",
-  GENDER: "gender",
-  SORT: "sort",
-};
-
 const FillterBox: React.FC = () => {
   const [tabs, setTabs] = useState({
     [TAB_KEYS.LIVING_PLACE]: false,
@@ -34,6 +30,7 @@ const FillterBox: React.FC = () => {
     [TAB_KEYS.POSITION]: false,
     [TAB_KEYS.GENDER]: false,
     [TAB_KEYS.SORT]: false,
+    [TAB_KEYS.USER_NAME]: false,
   });
 
   function handleTab(
@@ -48,25 +45,44 @@ const FillterBox: React.FC = () => {
 
   const [query, setQuery] = useState("");
 
-  const filter = useAppSelector((state) => state.users.filter);
-  const filterLocale = useAppSelector((state) => state.users.localeFilter);
+  const filter = useAppSelector(selectUserDBFilter);
+  const filterLocale = useAppSelector(selectUsersLocaleFilter);
 
   const {
+    filterByUserName,
     filterByLivingPlace,
     filterByRegistrationDate,
     filterByBirthDate,
     filterByPosition,
     filterByGender,
     sortUser,
+    handleResetFilter,
+    handleResetLocaleFilter,
   } = useUserFilter();
 
   const { getUserLabelsQuery } = useUsersQuery();
+
+  function resetFilterBox() {
+    handleResetFilter();
+    handleResetLocaleFilter();
+    
+    setTabs((prev) => ({
+      ...prev,
+      [TAB_KEYS.USER_NAME]: !prev[TAB_KEYS.USER_NAME],
+      [TAB_KEYS.LIVING_PLACE]: !prev[TAB_KEYS.LIVING_PLACE],
+      [TAB_KEYS.REGISTRATION]: !prev[TAB_KEYS.REGISTRATION],
+      [TAB_KEYS.BIRTHDATE]: !prev[TAB_KEYS.BIRTHDATE],
+      [TAB_KEYS.POSITION]: !prev[TAB_KEYS.POSITION],
+      [TAB_KEYS.GENDER]: !prev[TAB_KEYS.GENDER],
+      [TAB_KEYS.SORT]: !prev[TAB_KEYS.SORT],
+    }));
+  }
 
   useEffect(() => {
     const timer = setTimeout(() => {
       const queryStr = generateFilterQuery(filter);
       setQuery(queryStr);
-    }, 2000);
+    }, 1500);
 
     return () => clearTimeout(timer);
   }, [filter]);
@@ -74,6 +90,28 @@ const FillterBox: React.FC = () => {
   return (
     <>
       <FilterBoxContainer>
+        <TabContainer data-tab>
+          <button
+            value={TAB_KEYS.USER_NAME}
+            onClick={handleTab}
+            className="tab-btn"
+          >
+            fillter by username
+          </button>
+          {tabs[TAB_KEYS.USER_NAME] && (
+            <div className="tab-content">
+              <div className="inp-field">
+                <label className="inp-field__label">username</label>
+                <input
+                  placeholder="username"
+                  className="inp-field__input"
+                  value={filter.userName || ""}
+                  onChange={(e) => filterByUserName(e.target.value)}
+                />
+              </div>
+            </div>
+          )}
+        </TabContainer>
         <TabContainer data-tab>
           <button
             value={TAB_KEYS.LIVING_PLACE}
@@ -270,6 +308,7 @@ const FillterBox: React.FC = () => {
                 (key) =>
                   key.type !== "default" && (
                     <button
+                      key={key.type}
                       value={key.type}
                       className={`gender-btn ${
                         filterLocale.gender === key.type ? "active" : ""
@@ -317,6 +356,7 @@ const FillterBox: React.FC = () => {
         </TabContainer>
       </FilterBoxContainer>
       <Button label="search" onClick={() => getUserLabelsQuery({ query })} />
+      <Button label="reset filter" onClick={() => resetFilterBox()} />
     </>
   );
 };

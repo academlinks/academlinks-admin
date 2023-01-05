@@ -13,7 +13,6 @@ export function* loginHandler({
 }) {
   try {
     const { data } = yield call(loginQuery, { password, userName });
-    console.log(data);
     yield put(setAdmin(data));
   } catch (error) {}
 }

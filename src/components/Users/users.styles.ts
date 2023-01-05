@@ -24,7 +24,7 @@ export const UsersContainer = styled.article`
   .users-list {
     display: flex;
     flex-direction: column;
-    gap: ${({ theme }) => theme.spacers.md};
+    gap: ${({ theme }) => theme.spacers.big};
     padding-right: 1rem;
     max-height: calc(100vh - 20rem);
     min-height: 30rem;
@@ -40,7 +40,7 @@ export const UsersContainer = styled.article`
 
   .user-details--container {
     .details-header {
-      height: 20rem;
+      height: 24rem;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -79,7 +79,7 @@ export const UsersContainer = styled.article`
 
     .details-info {
       min-height: 100%;
-      max-height: calc(100vh - 20rem);
+      max-height: calc(100vh - 24rem);
       overflow: auto;
       padding: 1rem 1rem 2rem 1rem;
 

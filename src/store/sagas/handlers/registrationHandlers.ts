@@ -12,6 +12,8 @@ import {
 import {
   getRegistrationLabelsQuery,
   getRegistrationRequestDetailsQuery,
+  aproveRequestQuery,
+  deleteRequestQuery,
 } from "../api/registrationQueries";
 
 import {
@@ -69,6 +71,7 @@ export function* aproveRequestHandler({
   payload: RequestMutationPropsT;
 }) {
   try {
+    yield call(aproveRequestQuery, { registrationId });
     yield put(removeRequest({ registrationId }));
   } catch (error: any) {
     showError({
@@ -88,6 +91,7 @@ export function* deleteRequestHandler({
   payload: RequestMutationPropsT;
 }) {
   try {
+    yield call(deleteRequestQuery, { registrationId });
     yield put(removeRequest({ registrationId }));
   } catch (error: any) {
     showError({
