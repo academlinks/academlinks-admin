@@ -1,16 +1,12 @@
 import styled from "styled-components";
+import { nestedAside } from "../../styles/helpers";
 
 export const RegistrationRequestsContainer = styled.article`
   display: flex;
   flex-direction: row;
 
   .side_bar {
-    display: flex;
-    flex-direction: column;
-    border-right: 1px solid
-      ${({ theme }) =>
-        theme.mode === "dark" ? theme.colors.redShade : theme.colors.darkGray};
-    padding: ${({ theme }) => theme.spacers.big};
+    ${nestedAside}
   }
 
   .fillter-btns--box {

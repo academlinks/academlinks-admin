@@ -20,6 +20,11 @@ const navRoutes = [
     id: nanoid(),
     path: "users",
   },
+  {
+    label: "commercials",
+    id: nanoid(),
+    path: "commercials",
+  },
 ];
 
 const Navigation: React.FC = () => {

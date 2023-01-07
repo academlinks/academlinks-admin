@@ -1,26 +1,14 @@
 import styled from "styled-components";
-import { scrollBar } from "../../styles/helpers";
+import { scrollBar, nestedAside } from "../../styles/helpers";
 
 export const UsersContainer = styled.article`
   display: flex;
   flex-direction: row;
 
   .users-aside {
-    width: 30rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    border-right: 1px solid
-      ${({ theme }) =>
-        theme.mode === "dark" ? theme.colors.redShade : theme.colors.darkGray};
-    padding: ${({ theme }) => theme.spacers.big};
-    overflow: auto;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
+    ${nestedAside}
   }
-  
+
   .users-list {
     display: flex;
     flex-direction: column;

@@ -37,3 +37,56 @@ export const scrollBar = () => css`
     margin-block-end: 1.5rem;
   }
 `;
+
+export const nestedAside = () => css`
+  width: 30rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-right: 1px solid
+    ${({ theme }) =>
+      theme.mode === "dark" ? theme.colors.redShade : theme.colors.darkGray};
+  padding: ${({ theme }) => theme.spacers.big};
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+export const inputField = () => css`
+  & {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  [data-input-field-label] {
+    text-transform: capitalize;
+    font-weight: ${({ theme }) => theme.font.medium};
+    font-size: ${({ theme }) => theme.fontSizes.sm};
+    cursor: pointer;
+  }
+
+  [data-input-field] {
+    height: 3rem;
+    padding: 0 0.3rem;
+    border-radius: ${({ theme }) => theme.rounded.sm};
+    color: ${({ theme }) => theme.colors.darkGray};
+
+    &::placeholder {
+      text-transform: capitalize;
+      font-size: ${({ theme }) => theme.fontSizes.sm};
+    }
+  }
+
+  [data-innput-field-error] {
+    font-weight: ${({ theme }) => theme.font.thin};
+    font-size: ${({ theme }) => theme.fontSizes.sm};
+    color: ${({ theme }) => theme.colors.redShade};
+
+    &::first-letter {
+      text-transform: capitalize;
+    }
+  }
+`;
