@@ -3,18 +3,36 @@ import { axiosQuery, axiosFormDataQuery } from "../../axiosConfig";
 import {
   CreateCommercialPropsT,
   GetCommercialsPropsT,
+  GetCommercialPropsT,
+  DeleteCommercialPropsT,
 } from "../../../interface/reducers/commercialReducer.types";
 
-export async function getCommercialsQuery({ query }: GetCommercialsPropsT) {}
-
 export async function createCommercialQuery(body: CreateCommercialPropsT) {
-  axiosFormDataQuery.post("/administration/commercials", body);
+  await axiosFormDataQuery.post("/administration/commercials", body);
 }
 
-export async function updateCommercialQuery() {
-  axiosQuery.patch("/administration/commercials");
+export async function updateCommercialQuery(
+  body: CreateCommercialPropsT,
+  commercialId: string
+) {
+  await axiosFormDataQuery.patch(
+    `/administration/commercials/${commercialId}`,
+    body
+  );
 }
 
-export async function deleteCommercialQuery() {
-  axiosQuery.delete("/administration/commercials");
+export async function deleteCommercialQuery({
+  commercialId,
+}: DeleteCommercialPropsT) {
+  await axiosQuery.delete(`/administration/commercials/${commercialId}`);
+}
+
+export async function getCommercialsQuery({ query }: GetCommercialsPropsT) {
+  return await axiosQuery(`/administration/commercials${query}`);
+}
+
+export async function getCommercialQuery({
+  commercialId,
+}: GetCommercialPropsT) {
+  return await axiosQuery(`/administration/commercials/${commercialId}`);
 }

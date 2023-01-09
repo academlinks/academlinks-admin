@@ -1,6 +1,10 @@
 import { useAppDispatch } from "../../store/hooks";
 
-import { setCommercialTargetKey } from "../../store/reducers/commercialsReducer";
+import {
+  setCommercialTargetKey,
+  resetCommercial,
+  resetCommercials,
+} from "../../store/reducers/commercialsReducer";
 import { CommercialTargetT } from "../../interface/reducers/commercialReducer.types";
 
 export default function useCommercials() {
@@ -10,5 +14,17 @@ export default function useCommercials() {
     dispatch(setCommercialTargetKey(target));
   }
 
-  return {handleCommercialTarget};
+  function handleResetCommercial() {
+    dispatch(resetCommercial());
+  }
+
+  function handleResetCommercials() {
+    dispatch(resetCommercials());
+  }
+
+  return {
+    handleCommercialTarget,
+    handleResetCommercial,
+    handleResetCommercials,
+  };
 }

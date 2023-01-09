@@ -1,3 +1,27 @@
+import { UserLabelT, UserDetailsT } from "../db/users.types";
+
+export interface StateT {
+  sideBarLoadingState: LoadingStateT;
+  contentLoadingState: LoadingStateT;
+  operationLoadingState: LoadingStateT;
+  users: UserLabelT[];
+  triggerGetNewUserDetails: {
+    getNew: boolean;
+    id: string;
+    isEmpty: boolean;
+  };
+  userDetails: UserDetailsT;
+  filter: FilterT;
+  localeFilter: LocaleFilterT;
+}
+
+interface LoadingStateT {
+  loading: boolean;
+  error: boolean;
+  message: string;
+}
+
+// db
 export interface GetUserLabelPropsT {
   query?: string;
 }

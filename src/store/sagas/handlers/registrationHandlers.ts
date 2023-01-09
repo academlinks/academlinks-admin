@@ -2,8 +2,9 @@ import { call, put } from "redux-saga/effects";
 import { showError, errorMessages } from "./errorHandler";
 
 import {
-  setLabelError,
+  setSideBarError,
   setContentError,
+  setOperationError,
   setRegistrationLabels,
   setRegistrationRequestDetails,
   removeRequest,
@@ -31,10 +32,10 @@ export function* getRegistrationLabelsHandler({
     const { data } = yield call(getRegistrationLabelsQuery, payload);
     yield put(setRegistrationLabels(data));
   } catch (error: any) {
-    showError({
+    yield showError({
       error,
       location: "getRegistrationLabelsHandler",
-      setter: setLabelError,
+      setter: setSideBarError,
       setterParams: {
         message: errorMessages.load,
       },
@@ -54,9 +55,9 @@ export function* getRegistrationRequestDetailsHandler({
 
     yield put(setRegistrationRequestDetails(data));
   } catch (error: any) {
-    showError({
+    yield showError({
       error,
-      location: "getRegistrationRequestDetails",
+      location: "getRegistrationRequestDetailsHandler",
       setter: setContentError,
       setterParams: {
         message: errorMessages.load,
@@ -74,12 +75,12 @@ export function* aproveRequestHandler({
     yield call(aproveRequestQuery, { registrationId });
     yield put(removeRequest({ registrationId }));
   } catch (error: any) {
-    showError({
+    yield showError({
       error,
       location: "aproveRequestHandler",
-      setter: setContentError,
+      setter: setOperationError,
       setterParams: {
-        message: errorMessages.load,
+        message: errorMessages.operation,
       },
     });
   }
@@ -94,12 +95,12 @@ export function* deleteRequestHandler({
     yield call(deleteRequestQuery, { registrationId });
     yield put(removeRequest({ registrationId }));
   } catch (error: any) {
-    showError({
+    yield showError({
       error,
-      location: "aproveRequestHandler",
-      setter: setContentError,
+      location: "deleteRequestHandler",
+      setter: setOperationError,
       setterParams: {
-        message: errorMessages.load,
+        message: errorMessages.operation,
       },
     });
   }

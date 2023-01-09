@@ -1,38 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import {
   selectUserLabels,
-  selectUserLabelsState,
+  selectUsersSideBarLoadingState,
   selectUsersLocaleFilter,
-  selectTriigererGetNewUserDetails,
 } from "../../store/selectors/userSelectors";
 import { useAppSelector } from "../../store/hooks";
 import { UserLabelT } from "../../interface/db/users.types";
 
-import { ListedUser, Spinner } from "../Layouts";
+import { ListedUser, Spinner, Error } from "../Layouts";
 import FillterBox from "./FillterBox";
 
 const UsersList: React.FC = () => {
-  const navigate = useNavigate();
-
-  const { loading, error, message } = useAppSelector(selectUserLabelsState);
+  const { loading, error, message } = useAppSelector(
+    selectUsersSideBarLoadingState
+  );
   const users = useAppSelector(selectUserLabels);
   const [usersShalow, setUsersShalow] = useState(users);
 
   const { gender, sort } = useAppSelector(selectUsersLocaleFilter);
-
-  const {
-    getNew,
-    id: scheduledUserId,
-    isEmpty: isEmptySchedule,
-  } = useAppSelector(selectTriigererGetNewUserDetails);
-
-  useEffect(() => {
-    if (getNew) navigate(scheduledUserId, { replace: true });
-    else if (isEmptySchedule) navigate("", { replace: true });
-  }, [getNew, isEmptySchedule]);
 
   useEffect(() => {
     if (!sort && !gender) return setUsersShalow(users);
@@ -56,7 +43,11 @@ const UsersList: React.FC = () => {
   return (
     <aside className="users-aside">
       <FillterBox />
+
       {loading && <Spinner />}
+
+      {error && <Error boxType="inline" message={message} />}
+
       {!loading && !error && (
         <div className="users-list">
           {usersShalow.map((user, i) => (

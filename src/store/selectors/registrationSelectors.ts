@@ -1,10 +1,20 @@
 import { RootStateT } from "..";
 
-export const selectRegistrationLabelsState = ({ registration }: RootStateT) =>
-  registration.labelsLoadingState;
-export const selectRegistrationContentState = ({ registration }: RootStateT) =>
-  registration.contentLoadingState;
+/////SECTION: Loading States /////
 
+export const selectRegistrationSideBarLoadingState = ({
+  registration,
+}: RootStateT) => registration.sideBarLoadingState;
+
+export const selectRegistrationContentLoadingState = ({
+  registration,
+}: RootStateT) => registration.contentLoadingState;
+
+export const selectRegistrationOperationLoadingState = ({
+  registration,
+}: RootStateT) => registration.operationLoadingState;
+
+/////SECTION:
 export const selectRegistrationRedirectAlert = ({ registration }: RootStateT) =>
   registration.redirectAlert;
 export const selectRegistrationFilterKey = ({ registration }: RootStateT) =>

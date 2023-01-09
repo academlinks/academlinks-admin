@@ -3,20 +3,25 @@ import React from "react";
 import { useAppSelector } from "../../../store/hooks";
 import {
   selectRegistrationLabels,
-  selectRegistrationLabelsState,
+  selectRegistrationSideBarLoadingState,
 } from "../../../store/selectors/registrationSelectors";
 
-import { ListedUser, Spinner } from "../../Layouts";
+import { ListedUser, Spinner, Error } from "../../Layouts";
 
 interface RequestsListType {}
 
 const RequestsList: React.FC<RequestsListType> = (props) => {
   const requests = useAppSelector(selectRegistrationLabels);
-  const { loading, error } = useAppSelector(selectRegistrationLabelsState);
+  const { loading, error, message } = useAppSelector(
+    selectRegistrationSideBarLoadingState
+  );
 
   return (
     <div className="requests-list">
       {loading && <Spinner />}
+
+      {error && <Error boxType="inline" message={message} />}
+
       {!loading &&
         !error &&
         requests.map((user) => (

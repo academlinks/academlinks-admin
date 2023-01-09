@@ -5,18 +5,20 @@ import { useAppSelector } from "../../store/hooks";
 
 import { useRegistrationQuery } from "../../hooks";
 import {
-  selectRegistrationContentState,
+  selectRegistrationContentLoadingState,
   selectRegistrationRedirectAlert,
 } from "../../store/selectors/registrationSelectors";
 
 import RegistrationDetailed from "../../components/RegistrationRequests/RegistrationDetailed";
-import { Spinner } from "../../components/Layouts";
+import { Spinner, Error } from "../../components/Layouts";
 
 const RegistrationDetailedPage: React.FC = () => {
   const { requestId } = useParams();
   const navigate = useNavigate();
 
-  const { loading, error } = useAppSelector(selectRegistrationContentState);
+  const { loading, error, message } = useAppSelector(
+    selectRegistrationContentLoadingState
+  );
   const { redirect, path } = useAppSelector(selectRegistrationRedirectAlert);
 
   const { getRegistrationRequestDetailsQuery, handleResetRedirectAlert } =
@@ -27,6 +29,7 @@ const RegistrationDetailedPage: React.FC = () => {
       getRegistrationRequestDetailsQuery({ registrationId: requestId });
 
     if (!redirect) return;
+    
     handleResetRedirectAlert();
     navigate(
       `/dashboard/registration-requests${path === "empty" ? "" : `/${path}`}`,
@@ -36,6 +39,7 @@ const RegistrationDetailedPage: React.FC = () => {
 
   return (
     <>
+      {error && <Error boxType="inline" message={message} />}
       {loading && <Spinner type="stand" />}
       {!loading && !error && <RegistrationDetailed />}
     </>

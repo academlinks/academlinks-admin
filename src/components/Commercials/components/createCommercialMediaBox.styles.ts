@@ -42,12 +42,16 @@ export const CreateCommercialMediaBoxContainer = styled.div`
     right: 3rem;
     width: 4.5rem;
     height: 4.5rem;
-    border-radius: inherit;
+    border-radius: 50%;
     font-size: 3rem;
     display: flex;
     justify-content: center;
     align-items: center;
     background: rgba(0, 0, 0, 0.6);
     cursor: pointer;
+  }
+
+  .media-msg {
+    color: ${({ theme }) => theme.colors.txt};
   }
 `;

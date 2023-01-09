@@ -1,11 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import {
+  StateT,
   GetUserLabelPropsT,
   GetUserDetailsPropsT,
   DeleteUserPropsT,
-  FilterT,
-  LocaleFilterT,
   FilterLivingPlaceT,
   FilterBirthDateT,
   FilterGenderT,
@@ -15,76 +14,25 @@ import {
 } from "../../interface/reducers/usersReducer.types";
 import { UserDetailsT, UserLabelT } from "../../interface/db/users.types";
 
-interface LoadingStateT {
-  loading: boolean;
-  error: boolean;
-  message: string | undefined;
-}
-
-interface StateT {
-  labelsLoadingState: LoadingStateT;
-  contentLoadingState: LoadingStateT;
-  users: UserLabelT[];
-  triggerGetNewUserDetails: {
-    getNew: boolean;
-    id: string;
-    isEmpty: boolean;
-  };
-  userDetails: UserDetailsT;
-  filter: FilterT;
-  localeFilter: LocaleFilterT;
-}
-
-function updateLabelsLoadingState({
-  state,
-  loading = true,
-  error = false,
-  message,
-}: {
-  state: StateT;
-  loading?: boolean;
-  error?: boolean;
-  message?: string;
-}) {
-  state.labelsLoadingState.loading = loading;
-  state.labelsLoadingState.error = error ? true : false;
-  state.labelsLoadingState.message = error ? message : "";
-}
-
-function updateContentLoadingState({
-  state,
-  loading = true,
-  error = false,
-  message,
-}: {
-  state: StateT;
-  loading?: boolean;
-  error?: boolean;
-  message?: string;
-}) {
-  state.contentLoadingState.loading = loading;
-  state.contentLoadingState.error = error ? true : false;
-  state.contentLoadingState.message = error ? message : "";
-}
-
 const initialState: StateT = {
-  labelsLoadingState: {
+  sideBarLoadingState: {
     loading: false,
     error: false,
     message: "",
   },
+
   contentLoadingState: {
     loading: false,
     error: false,
     message: "",
   },
-  users: [],
 
-  triggerGetNewUserDetails: {
-    getNew: false,
-    id: "",
-    isEmpty: false,
+  operationLoadingState: {
+    loading: false,
+    error: false,
+    message: "",
   },
+
   userDetails: {
     _id: "",
     userName: "",
@@ -107,49 +55,92 @@ const initialState: StateT = {
     workplace: [],
   },
 
+  users: [],
+
   filter: {},
   localeFilter: {},
+
+  triggerGetNewUserDetails: {
+    getNew: false,
+    id: "",
+    isEmpty: false,
+  },
 };
 
 const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
-    setLabelError(
-      state,
-      { payload: { message } }: PayloadAction<{ message: string }>
-    ) {
-      updateLabelsLoadingState({ state, loading: false, error: true, message });
-    },
+    ///// SECTION: Loading State And Error Handling /////
 
-    setContentError(
+    setSideBarError(
       state,
       { payload: { message } }: PayloadAction<{ message: string }>
     ) {
-      updateContentLoadingState({
+      updateLoadingState({
         state,
+        key: "sideBarLoadingState",
         loading: false,
         error: true,
         message,
       });
     },
 
+    setContentError(
+      state,
+      { payload: { message } }: PayloadAction<{ message: string }>
+    ) {
+      updateLoadingState({
+        state,
+        key: "contentLoadingState",
+        loading: false,
+        error: true,
+        message,
+      });
+    },
+
+    setOperationError(
+      state,
+      { payload: { message } }: PayloadAction<{ message: string }>
+    ) {
+      updateLoadingState({
+        state,
+        key: "operationLoadingState",
+        loading: false,
+        error: true,
+        message,
+      });
+    },
+
+    resetOperationError(state) {
+      updateLoadingState({
+        state,
+        key: "operationLoadingState",
+        loading: false,
+        error: false,
+        message: "",
+      });
+    },
+
+    ////// SECTION: DB Query And Setters /////
+
     getUserLabels(state, { payload }: PayloadAction<GetUserLabelPropsT>) {
-      updateLabelsLoadingState({ state });
+      updateLoadingState({ state, key: "sideBarLoadingState" });
     },
 
     setUserLabels(state, { payload }: PayloadAction<UserLabelT[]>) {
       state.users = payload;
-      updateLabelsLoadingState({ state, loading: false });
+      updateLoadingState({ state, key: "sideBarLoadingState", loading: false });
     },
 
     getUserDetails(state, { payload }: PayloadAction<GetUserDetailsPropsT>) {
-      updateContentLoadingState({ state });
+      updateLoadingState({ state, key: "contentLoadingState" });
     },
 
     setUserDetails(state, { payload }: PayloadAction<UserDetailsT>) {
       state.userDetails = payload;
-      updateContentLoadingState({ state, loading: false });
+
+      updateLoadingState({ state, key: "contentLoadingState", loading: false });
 
       if (state.triggerGetNewUserDetails.getNew)
         state.triggerGetNewUserDetails = {
@@ -159,7 +150,9 @@ const usersSlice = createSlice({
         };
     },
 
-    deleteUser(_, { payload }: PayloadAction<DeleteUserPropsT>) {},
+    deleteUser(state, { payload }: PayloadAction<DeleteUserPropsT>) {
+      updateLoadingState({ state, key: "operationLoadingState" });
+    },
 
     setDeletedUser(
       state,
@@ -189,11 +182,16 @@ const usersSlice = createSlice({
       }
 
       state.users = state.users.filter((user) => user._id !== userId);
+
+      updateLoadingState({
+        state,
+        key: "operationLoadingState",
+        loading: false,
+      });
     },
 
-    /////////////////////////////
-    ////////// filter //////////
-    ///////////////////////////
+    ///// SECTION: filter /////
+
     resetFilter(state) {
       state.filter = {};
     },
@@ -267,8 +265,12 @@ const usersSlice = createSlice({
 
 export default usersSlice.reducer;
 export const {
-  setLabelError,
+  // Error Handling
+  setSideBarError,
   setContentError,
+  setOperationError,
+  resetOperationError,
+  // DB Query And Setters
   getUserLabels,
   setUserLabels,
   getUserDetails,
@@ -286,3 +288,28 @@ export const {
   setFilterByGender,
   setSort,
 } = usersSlice.actions;
+
+type KeyT =
+  | "sideBarLoadingState"
+  | "contentLoadingState"
+  | "operationLoadingState";
+
+interface UpdaterT {
+  state: StateT;
+  key: KeyT;
+  loading?: boolean;
+  error?: boolean;
+  message?: string;
+}
+
+function updateLoadingState({
+  state,
+  key,
+  loading = true,
+  error = false,
+  message = "",
+}: UpdaterT) {
+  state[key].loading = loading;
+  state[key].error = error ? true : false;
+  state[key].message = error ? message : "";
+}

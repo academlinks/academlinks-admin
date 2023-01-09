@@ -9,6 +9,7 @@ import {
   getUserLabels,
   getUserDetails,
   deleteUser,
+  resetOperationError,
 } from "../../store/reducers/userReducer";
 
 export default function useUsersQuery() {
@@ -26,5 +27,14 @@ export default function useUsersQuery() {
     dispatch(deleteUser({ userId }));
   }
 
-  return { getUserLabelsQuery, getUserDetailsQuery, deleteUserQuery };
+  function handleResetOperationError() {
+    dispatch(resetOperationError());
+  }
+
+  return {
+    getUserLabelsQuery,
+    getUserDetailsQuery,
+    deleteUserQuery,
+    handleResetOperationError,
+  };
 }

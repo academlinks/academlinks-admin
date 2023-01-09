@@ -10,6 +10,7 @@ interface SelectType {
   error?: boolean;
   message?: string;
   multiple?: boolean;
+  defaultValue?: string;
 }
 
 const Select: React.FC<SelectType> = ({
@@ -20,6 +21,7 @@ const Select: React.FC<SelectType> = ({
   error,
   message,
   multiple = false,
+  defaultValue,
 }) => {
   return (
     <SelectFieldContainer data-input-field-container>
@@ -28,7 +30,13 @@ const Select: React.FC<SelectType> = ({
           {label}
         </label>
       )}
-      <select id={id} name={name} multiple={multiple} data-input-field>
+      <select
+        id={id}
+        name={name}
+        defaultValue={defaultValue}
+        multiple={multiple}
+        data-input-field
+      >
         {values.map((val) => (
           <option key={val.value} value={val.value}>
             {val.caption}

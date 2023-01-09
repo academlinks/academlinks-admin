@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { nestedAside, inputField } from "../../styles/helpers";
+import { nestedAside, inputField, scrollBar } from "../../styles/helpers";
 
 export const CommercialsContainer = styled.section`
   display: flex;
@@ -10,6 +10,7 @@ export const CommercialsContainer = styled.section`
 
   .commercials-content--wrapper {
     flex: 1;
+    position: relative;
   }
 `;
 
@@ -54,6 +55,10 @@ export const ActiveCommercialContainer = styled.article`
   max-height: 100vh;
   overflow: auto;
   padding: 1rem;
+  ${scrollBar};
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
   .commercial-fig {
     width: 100%;
@@ -72,5 +77,12 @@ export const ActiveCommercialContainer = styled.article`
     flex-direction: column;
     gap: 1rem;
     margin: 1rem 0 0 1rem;
+  }
+
+  .comemrcial-crud__btn {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
   }
 `;

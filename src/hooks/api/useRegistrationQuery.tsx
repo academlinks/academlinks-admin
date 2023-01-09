@@ -6,6 +6,7 @@ import {
   aproveRequest,
   deleteRequest,
   // NaN API Tasks
+  resetOperationError,
   resetRedirectAlert,
   setFilterKey,
 } from "../../store/reducers/registrationReducer";
@@ -46,6 +47,10 @@ export default function useRegistrationQuery() {
     dispatch(setFilterKey(key));
   }
 
+  function handleResetOperationError() {
+    dispatch(resetOperationError());
+  }
+
   return {
     getRegistrationLabelsQuery,
     getRegistrationRequestDetailsQuery,
@@ -54,5 +59,6 @@ export default function useRegistrationQuery() {
     //NaN API Task
     handleResetRedirectAlert,
     handleFilterKey,
+    handleResetOperationError,
   };
 }

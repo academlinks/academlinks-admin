@@ -2,23 +2,42 @@ import React from "react";
 
 import { useAppSelector } from "../../store/hooks";
 import { useRegistrationQuery } from "../../hooks";
-import { selectRegistrationRequestDetails } from "../../store/selectors/registrationSelectors";
-// import { formatDate } from "../../lib";
+import {
+  selectRegistrationRequestDetails,
+  selectRegistrationOperationLoadingState,
+} from "../../store/selectors/registrationSelectors";
 
 import {
   DetailedItem,
   DetailedLivingPlace,
   DetailedRegistrationBio,
   Button,
+  Spinner,
+  Error,
 } from "../Layouts";
 
 const RegistrationDetailed: React.FC = () => {
   const details = useAppSelector(selectRegistrationRequestDetails);
 
-  const { aproveRequestQuery, deleteRequestQuery } = useRegistrationQuery();
+  const { loading, error, message } = useAppSelector(
+    selectRegistrationOperationLoadingState
+  );
+
+  const { aproveRequestQuery, deleteRequestQuery, handleResetOperationError } =
+    useRegistrationQuery();
 
   return (
     <div className="registration-detailed">
+      {loading && <Spinner type="stand" />}
+
+      {error && (
+        <Error
+          boxType="modal"
+          message={message}
+          onClose={handleResetOperationError}
+        />
+      )}
+
       <DetailedItem label="firstname" data={details?.firstName!} />
       <DetailedItem label="lastname" data={details?.lastName!} />
       <DetailedItem label="email" data={details?.email!} />

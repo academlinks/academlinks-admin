@@ -6,41 +6,33 @@ import {
 } from "../../interface/db/registration.types";
 
 import {
+  StateT,
   GetRegistrationRequestDetailsPropsT,
   RequestMutationPropsT,
   FilterKeyT,
 } from "../../interface/reducers/registrationReducer.types";
 
-interface LoadingStateT {
-  loading: boolean;
-  error: boolean;
-  message: string | undefined;
-}
-
-interface StateT {
-  registrationLabels: RegistrationLabelsT[];
-  requestDetails?: RegistrationRequestDetailsT;
-  labelsLoadingState: LoadingStateT;
-  contentLoadingState: LoadingStateT;
-  redirectAlert: {
-    redirect: boolean;
-    path: "empty" | string;
-  };
-  filterKey: FilterKeyT;
-}
-
 const initialState: StateT = {
-  registrationLabels: [],
-  labelsLoadingState: {
+  sideBarLoadingState: {
     loading: false,
     error: false,
     message: "",
   },
+
   contentLoadingState: {
     loading: false,
     error: false,
     message: "",
   },
+
+  operationLoadingState: {
+    loading: false,
+    error: false,
+    message: "",
+  },
+
+  registrationLabels: [],
+
   requestDetails: {
     _id: "",
     aproved: false,
@@ -66,74 +58,74 @@ const initialState: StateT = {
       institution: "",
     },
   },
+
   redirectAlert: {
     redirect: false,
     path: "",
   },
+
   filterKey: "new",
 };
-
-function updateLabelsLoadingState({
-  state,
-  loading = true,
-  error = false,
-  message,
-}: {
-  state: StateT;
-  loading?: boolean;
-  error?: boolean;
-  message?: string;
-}) {
-  state.labelsLoadingState.loading = loading;
-  state.labelsLoadingState.error = error ? true : false;
-  state.labelsLoadingState.message = error ? message : "";
-}
-
-function updateContentLoadingState({
-  state,
-  loading = true,
-  error = false,
-  message,
-}: {
-  state: StateT;
-  loading?: boolean;
-  error?: boolean;
-  message?: string;
-}) {
-  state.contentLoadingState.loading = loading;
-  state.contentLoadingState.error = error ? true : false;
-  state.contentLoadingState.message = error ? message : "";
-}
 
 const RegistrationSlice = createSlice({
   name: "registration",
   initialState,
   reducers: {
-    setLabelError(
-      state,
-      { payload: { message } }: PayloadAction<{ message: string }>
-    ) {
-      updateLabelsLoadingState({ state, loading: false, error: true, message });
-    },
+    ///// SECTION: Loading State And Error Handling /////
 
-    setContentError(
+    setSideBarError(
       state,
       { payload: { message } }: PayloadAction<{ message: string }>
     ) {
-      updateContentLoadingState({
+      updateLoadingState({
         state,
+        key: "sideBarLoadingState",
         loading: false,
         error: true,
         message,
       });
     },
 
-    setFilterKey(state, { payload }: PayloadAction<FilterKeyT>) {
-      state.filterKey = payload;
+    setContentError(
+      state,
+      { payload: { message } }: PayloadAction<{ message: string }>
+    ) {
+      updateLoadingState({
+        state,
+        key: "contentLoadingState",
+        loading: false,
+        error: true,
+        message,
+      });
     },
 
+    setOperationError(
+      state,
+      { payload: { message } }: PayloadAction<{ message: string }>
+    ) {
+      updateLoadingState({
+        state,
+        key: "operationLoadingState",
+        loading: false,
+        error: true,
+        message,
+      });
+    },
+
+    resetOperationError(state) {
+      updateLoadingState({
+        state,
+        key: "operationLoadingState",
+        loading: false,
+        error: false,
+        message: "",
+      });
+    },
+
+    ////// SECTION: DB Query And Setters /////
+
     getRegistrationLabels(state, { payload }: PayloadAction<FilterKeyT>) {
-      updateLabelsLoadingState({ state });
+      updateLoadingState({ state, key: "sideBarLoadingState" });
     },
 
     setRegistrationLabels(
@@ -142,14 +134,14 @@ const RegistrationSlice = createSlice({
     ) {
       state.registrationLabels = payload;
 
-      updateLabelsLoadingState({ state, loading: false });
+      updateLoadingState({ state, key: "sideBarLoadingState", loading: false });
     },
 
     getRegistrationRequesDetails(
       state,
       { payload }: PayloadAction<GetRegistrationRequestDetailsPropsT>
     ) {
-      updateContentLoadingState({ state });
+      updateLoadingState({ state, key: "contentLoadingState" });
     },
 
     setRegistrationRequestDetails(
@@ -158,7 +150,7 @@ const RegistrationSlice = createSlice({
     ) {
       state.requestDetails = payload;
 
-      updateContentLoadingState({ state, loading: false });
+      updateLoadingState({ state, key: "contentLoadingState", loading: false });
     },
 
     removeRequest(
@@ -193,7 +185,25 @@ const RegistrationSlice = createSlice({
         (reg) => reg._id !== registrationId
       );
 
-      updateContentLoadingState({ state, loading: false });
+      updateLoadingState({
+        state,
+        key: "operationLoadingState",
+        loading: false,
+      });
+    },
+
+    aproveRequest(state, { payload }: PayloadAction<RequestMutationPropsT>) {
+      updateLoadingState({ state, key: "operationLoadingState" });
+    },
+
+    deleteRequest(state, { payload }: PayloadAction<RequestMutationPropsT>) {
+      updateLoadingState({ state, key: "operationLoadingState" });
+    },
+
+    ///// SECTION: Dom Manipulation And Trigerer Helpers /////
+
+    setFilterKey(state, { payload }: PayloadAction<FilterKeyT>) {
+      state.filterKey = payload;
     },
 
     resetRedirectAlert(state) {
@@ -202,21 +212,15 @@ const RegistrationSlice = createSlice({
         path: "",
       };
     },
-
-    aproveRequest(state, { payload }: PayloadAction<RequestMutationPropsT>) {
-      updateContentLoadingState({ state });
-    },
-
-    deleteRequest(state, { payload }: PayloadAction<RequestMutationPropsT>) {
-      updateContentLoadingState({ state });
-    },
   },
 });
 
 export default RegistrationSlice.reducer;
 export const {
-  setLabelError,
+  setSideBarError,
   setContentError,
+  setOperationError,
+  resetOperationError,
   setFilterKey,
   getRegistrationLabels,
   setRegistrationLabels,
@@ -227,3 +231,28 @@ export const {
   deleteRequest,
   aproveRequest,
 } = RegistrationSlice.actions;
+
+type KeyT =
+  | "sideBarLoadingState"
+  | "contentLoadingState"
+  | "operationLoadingState";
+
+interface UpdaterT {
+  state: StateT;
+  key: KeyT;
+  loading?: boolean;
+  error?: boolean;
+  message?: string;
+}
+
+function updateLoadingState({
+  state,
+  key,
+  loading = true,
+  error = false,
+  message = "",
+}: UpdaterT) {
+  state[key].loading = loading;
+  state[key].error = error ? true : false;
+  state[key].message = error ? message : "";
+}

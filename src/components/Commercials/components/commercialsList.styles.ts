@@ -5,6 +5,10 @@ export const CommercialsListContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  height: calc(100vh - 12.5rem);
+  max-height: calc(100vh - 12.5rem);
+  overflow: auto;
+  position: relative;
 
   .commercial-item {
     border-radius: ${({ theme }) => theme.rounded.sm};

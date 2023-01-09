@@ -1,18 +1,36 @@
-import React, { useState, useRef, FormEvent } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useRef, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { useAppSelector } from "../../store/hooks";
 
 import { useCommercialQuery } from "../../hooks";
-import { selectCommercialOperationState } from "../../store/selectors/commercialSelectors";
+import {
+  selectCommercialOperationLoadingState,
+  selectComercialCreationStatus,
+} from "../../store/selectors/commercialSelectors";
 
-import { Input, Select, Button, Spinner } from "../Layouts";
+import { Input, Select, Button, Spinner, Error } from "../Layouts";
 import { CreateCommercialForm } from "./commercial.styled";
 import CreateCommercialMediaBox from "./components/CreateCommercialMediaBox";
 
 const CreateCommercial: React.FC = () => {
-  const { createCommercialQuery } = useCommercialQuery();
+  const navigate = useNavigate();
+
+  const { state } = useLocation();
+  const updateCredentials = state && state.commercial ? state.commercial : null;
+  const operationType = state && state.operation ? state.operation : null;
+
+  const isSuccessfullyCreated = useAppSelector(selectComercialCreationStatus);
+
+  const {
+    createCommercialQuery,
+    updateCommercialQuery,
+    handleResetOperationError,
+  } = useCommercialQuery();
+
   const { error, loading, message } = useAppSelector(
-    selectCommercialOperationState
+    selectCommercialOperationLoadingState
   );
 
   const isLinkableRef = useRef<HTMLInputElement>(null);
@@ -22,7 +40,7 @@ const CreateCommercial: React.FC = () => {
 
   const formRef = useRef<HTMLFormElement>(null);
 
-  function handleSubmit(e: FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     const formData = new FormData(formRef.current!);
@@ -32,24 +50,71 @@ const CreateCommercial: React.FC = () => {
       commercialForm[key] = value;
     }
 
-    createCommercialQuery({
-      client: commercialForm.client,
-      image: commercialForm.image,
-      isLinkable: commercialForm.link ? true : false,
-      link: commercialForm.link,
-      validUntil: commercialForm.validUntil,
-      location: {
+    if (operationType && operationType === "update") {
+      updateCommercialQuery({
+        commercialId: updateCredentials._id,
+        body: {
+          client: commercialForm.client,
+          image: commercialForm.image,
+          media:
+            updateCredentials && updateCredentials.media
+              ? updateCredentials.media
+              : "",
+          isLinkable: commercialForm.link ? true : false,
+          link: commercialForm.link,
+          validUntil: commercialForm.validUntil,
+          page: commercialForm.page,
+          side: commercialForm.side,
+        },
+      });
+    } else {
+      createCommercialQuery({
+        client: commercialForm.client,
+        image: commercialForm.image,
+        isLinkable: commercialForm.link ? true : false,
+        link: commercialForm.link,
+        validUntil: commercialForm.validUntil,
         page: commercialForm.page,
         side: commercialForm.side,
-      },
-    });
+      });
+    }
   }
+
+  useEffect(() => {
+    if (
+      updateCredentials &&
+      updateCredentials.isLinkable &&
+      isLinkableRef.current
+    ) {
+      isLinkableRef.current.checked = true;
+      setIsLinkable(true);
+    }
+  }, [updateCredentials]);
+
+  useEffect(() => {
+    if (isSuccessfullyCreated === null) return;
+    navigate("/dashboard/commercials?active=true", { replace: true });
+  }, [isSuccessfullyCreated]);
 
   return (
     <CreateCommercialForm onSubmit={handleSubmit} ref={formRef}>
       {loading && <Spinner type="stand" />}
 
-      <CreateCommercialMediaBox />
+      {error && (
+        <Error
+          boxType="modal"
+          message={message}
+          onClose={handleResetOperationError}
+        />
+      )}
+
+      <CreateCommercialMediaBox
+        defaultMedia={
+          updateCredentials && updateCredentials.media
+            ? updateCredentials.media
+            : ""
+        }
+      />
 
       <Input
         placeholder="client"
@@ -58,6 +123,11 @@ const CreateCommercial: React.FC = () => {
         error={false}
         message="some error msg here"
         name="client"
+        defaultValue={
+          updateCredentials && updateCredentials.client
+            ? updateCredentials.client
+            : ""
+        }
       />
 
       <Input
@@ -68,6 +138,11 @@ const CreateCommercial: React.FC = () => {
         message="some error msg here"
         type="date"
         name="validUntil"
+        defaultValue={
+          updateCredentials && updateCredentials.validUntil
+            ? new Date(updateCredentials.validUntil).toISOString().slice(0, 10)
+            : ""
+        }
       />
 
       <Select
@@ -81,6 +156,11 @@ const CreateCommercial: React.FC = () => {
         ]}
         error={false}
         message="some err msg"
+        defaultValue={
+          updateCredentials && updateCredentials.location?.page
+            ? updateCredentials.location.page
+            : ""
+        }
       />
 
       <Select
@@ -93,6 +173,11 @@ const CreateCommercial: React.FC = () => {
         ]}
         error={false}
         message="some err msg"
+        defaultValue={
+          updateCredentials && updateCredentials.location?.side
+            ? updateCredentials.location.side
+            : ""
+        }
       />
 
       <div data-input-field-container className="linkable-field">
@@ -104,17 +189,29 @@ const CreateCommercial: React.FC = () => {
           <input type="checkbox" id="isLinkable" ref={isLinkableRef} />
           <label htmlFor="isLinkable">is linkable</label>
         </div>
+
         {isLinkable && (
           <Input
             placeholder="link"
             error={false}
             message="some error msg here"
             name="link"
+            defaultValue={
+              updateCredentials && updateCredentials.link
+                ? updateCredentials.link
+                : ""
+            }
           />
         )}
       </div>
 
-      <Button label="create" type="submit" className="commercial-submit__btn" />
+      <Button
+        label={
+          operationType && operationType === "update" ? "update" : "create"
+        }
+        type="submit"
+        className="commercial-submit__btn"
+      />
     </CreateCommercialForm>
   );
 };

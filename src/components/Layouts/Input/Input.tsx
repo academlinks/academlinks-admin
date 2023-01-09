@@ -12,6 +12,7 @@ interface InputType {
   id?: string;
   error?: boolean;
   message?: string;
+  defaultValue?: string;
 }
 
 const Input: React.FC<InputType> = ({
@@ -24,6 +25,7 @@ const Input: React.FC<InputType> = ({
   id,
   error,
   message,
+  defaultValue,
 }) => {
   return (
     <InputFieldContainer data-input-field-container>
@@ -36,6 +38,7 @@ const Input: React.FC<InputType> = ({
         data-input-field
         id={id}
         value={value}
+        defaultValue={defaultValue}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         type={type}

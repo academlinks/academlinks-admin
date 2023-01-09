@@ -5,6 +5,7 @@ export const ComercialSideBarNavContainer = styled.div`
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(3, max-content);
   gap: 1rem;
+  height: 12.5rem;
 
   .commercials-target-btn:nth-child(3),
   .commercials-target-btn:nth-child(4) {

@@ -33,7 +33,7 @@ export function* showError({
     yield put(
       setter({
         ...setterParams,
-        message: error.response.data.message || setterParams.message,
+        message: error.response?.data.message || setterParams.message,
       })
     );
 
@@ -42,14 +42,18 @@ export function* showError({
   console.log({
     error: true,
     location: `sagaHandler - ${location}`,
-    message: error.response.data.message || error.message,
+    message: error.response?.data.message || error.message,
     err: error,
     stack: error.stack,
   });
 }
 
-export function triggerError() {
-  throw new Error("manually trigered error");
+export function* triggerError(loadMs: number = 0) {
+  yield new Promise((_, reject) => {
+    setTimeout(() => {
+      reject(new Error("triggered new error"));
+    }, loadMs);
+  });
 }
 
 const messages = () => {

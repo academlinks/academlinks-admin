@@ -23,7 +23,7 @@ const navRoutes = [
   {
     label: "commercials",
     id: nanoid(),
-    path: "commercials",
+    path: "commercials?active=true",
   },
 ];
 
