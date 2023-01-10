@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useAppSelector } from "../../store/hooks";
 import { useUsersQuery } from "../../hooks";
@@ -6,15 +6,19 @@ import { selectUserDetails } from "../../store/selectors/userSelectors";
 import { formatDate } from "../../lib";
 
 import { selectUsersOperationLoadingState } from "../../store/selectors/userSelectors";
-import { Spinner, Error } from "../Layouts";
 
 import {
   DetailedItem,
   DetailedLivingPlace,
   DetailedWorkplace,
   DetailedEducationItem,
+  DetailedCurrentWorkplace,
   Button,
+  Spinner,
+  Error,
 } from "../Layouts";
+
+import MediaModal from "./MediaModal";
 
 import {
   FaRegRegistered,
@@ -35,10 +39,12 @@ const UserDetails: React.FC = () => {
 
   const { deleteUserQuery, handleResetOperationError } = useUsersQuery();
 
+  const [openMedia, setOpenMedia] = useState(false);
+
   return (
     <div className="user-details--container">
       {loading && <Spinner type="stand" />}
-      
+
       {error && (
         <Error
           boxType="modal"
@@ -47,10 +53,23 @@ const UserDetails: React.FC = () => {
         />
       )}
 
+      {openMedia && (
+        <MediaModal
+          fig={userDetails.profileImg}
+          onClose={() => setOpenMedia(false)}
+        />
+      )}
+
       {userDetails && (
         <>
           <div className="details-header">
-            <figure className="details-header__fig">
+            <figure
+              className="details-header__fig"
+              onClick={(e) => {
+                e.stopPropagation();
+                setOpenMedia(true);
+              }}
+            >
               <img src={userDetails.profileImg} alt={userDetails.userName} />
             </figure>
 
@@ -114,6 +133,25 @@ const UserDetails: React.FC = () => {
               icon={<MdLocationOn />}
             />
 
+            {userDetails.education?.[0] && (
+              <div className="listed-box education">
+                <span className="listed-box__head">education</span>
+                {userDetails.education.map((education) => (
+                  <DetailedEducationItem
+                    key={education._id}
+                    education={education}
+                    icon={<FaGraduationCap />}
+                    className="listed-box__education"
+                  />
+                ))}
+              </div>
+            )}
+
+            <DetailedCurrentWorkplace
+              workplace={userDetails.currentWorkplace}
+              icon={<BsFillBriefcaseFill />}
+            />
+
             {userDetails.workplace[0] && (
               <div className="listed-box">
                 <span className="listed-box__head">workplaces</span>
@@ -123,20 +161,6 @@ const UserDetails: React.FC = () => {
                     workplace={workPlace}
                     icon={<BsFillBriefcaseFill />}
                     className="listed-box__workplace"
-                  />
-                ))}
-              </div>
-            )}
-
-            {userDetails.education?.[0] && (
-              <div className="listed-box">
-                <span className="listed-box__head">education</span>
-                {userDetails.education.map((education) => (
-                  <DetailedEducationItem
-                    key={education._id}
-                    education={education}
-                    icon={<FaGraduationCap />}
-                    className="listed-box__education"
                   />
                 ))}
               </div>

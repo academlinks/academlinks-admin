@@ -27,7 +27,7 @@ const DetailedWorkplace: React.FC<DetailedWorkplaceType> = ({
         <strong className="capitalize">{workplace.institution}</strong>
         {workplace.position && (
           <>
-            <span>as</span> <strong>{workplace.position}</strong>
+            <span>{" "}as</span> <strong>{workplace.position}</strong>
           </>
         )}
         {workplace.workingYears && (

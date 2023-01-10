@@ -22,6 +22,13 @@ export interface UserDetailsT {
   createdAt: string;
   currentLivingPlace: LivingPlaceT;
   from: LivingPlaceT;
+  currentWorkplace: CurrentWorkPlaceT;
   workplace: WorkplaceT[];
   education?: EducationT[];
+}
+
+export interface CurrentWorkPlaceT {
+  institution: string;
+  position: string;
+  description: string;
 }

@@ -53,6 +53,11 @@ const initialState: StateT = {
     },
     education: [],
     workplace: [],
+    currentWorkplace: {
+      description: "",
+      institution: "",
+      position: "",
+    },
   },
 
   users: [],

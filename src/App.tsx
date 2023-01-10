@@ -22,6 +22,25 @@ const ActiveCommercialPage = lazy(
 const CreateCommercialPage = lazy(
   () => import("./pages/Commercials/CreateCommercialPage")
 );
+const StatisticsPage = lazy(() => import("./pages/Statistics/StatisticsPage"));
+const UserRegDatesPage = lazy(
+  () => import("./pages/Statistics/UserRegDatesPage")
+);
+const UsersByGenderPage = lazy(
+  () => import("./pages/Statistics/UsersByGenderPage")
+);
+const UsersAgeRangePage = lazy(
+  () => import("./pages/Statistics/UsersAgeRangePage")
+);
+const UsersByPositionPage = lazy(
+  () => import("./pages/Statistics/UsersByPositionPage")
+);
+const UsersByCurrentCountryPage = lazy(
+  () => import("./pages/Statistics/UsersByCurrentCountryPage")
+);
+const UsersByHomelandPage = lazy(
+  () => import("./pages/Statistics/UsersByHomelandPage")
+);
 
 function App() {
   return (
@@ -42,6 +61,17 @@ function App() {
             <Route path="commercials" element={<CommercialsPage />}>
               <Route path="create" element={<CreateCommercialPage />} />
               <Route path=":commercialId" element={<ActiveCommercialPage />} />
+            </Route>
+            <Route path="statistics" element={<StatisticsPage />}>
+              <Route path="reg-dates" element={<UserRegDatesPage />} />
+              <Route path="gender" element={<UsersByGenderPage />} />
+              <Route path="position" element={<UsersByPositionPage />} />
+              <Route path="age-range" element={<UsersAgeRangePage />} />
+              <Route
+                path="geo-current"
+                element={<UsersByCurrentCountryPage />}
+              />
+              <Route path="geo-home" element={<UsersByHomelandPage />} />
             </Route>
           </Route>
         </Route>

@@ -46,6 +46,7 @@ export const UsersContainer = styled.article`
         aspect-ratio: 1/1;
         border-radius: 100%;
         overflow: hidden;
+        cursor: pointer;
 
         img {
           width: 100%;
@@ -87,6 +88,10 @@ export const UsersContainer = styled.article`
       &__education,
       &__workplace:not(:last-child) {
         border: none;
+      }
+
+      &.education {
+        border-bottom: ${({ theme }) => `1px solid ${theme.colors.redShade}`};
       }
     }
   }

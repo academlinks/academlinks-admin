@@ -25,6 +25,11 @@ const navRoutes = [
     id: nanoid(),
     path: "commercials?active=true",
   },
+  {
+    label: "statistics",
+    id: nanoid(),
+    path: "statistics",
+  },
 ];
 
 const Navigation: React.FC = () => {
