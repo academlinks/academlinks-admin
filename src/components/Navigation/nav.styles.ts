@@ -35,6 +35,22 @@ export const Nav = styled.nav`
     padding: 1rem;
     border-radius: 0.75rem;
     transition: all 0.2s ease-in;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-badge {
+    background: ${({ theme }) =>
+      theme.mode === "dark" ? theme.colors.redShade : theme.colors.blue};
+    color: ${({ theme }) => theme.colors.white};
+    font-size: ${({ theme }) => theme.fontSizes.xsm};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 100%;
   }
 
   ${linkHover({ class: ".nav-link", activeClass: ".active-nav-link" })}

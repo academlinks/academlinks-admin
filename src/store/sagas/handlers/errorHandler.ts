@@ -19,7 +19,7 @@ type ErrorT = AppError;
 interface AppErrorT {
   error: ErrorT;
   location: string;
-  setter: ActionCreatorWithPayload<any>;
+  setter?: ActionCreatorWithPayload<any>;
   setterParams?: any;
 }
 

@@ -12,7 +12,8 @@ interface GetChartConfigT {
     | "genderRange"
     | "userPositionRange"
     | "currCountryRange"
-    | "homelandRange";
+    | "homelandRange"
+    | "institutionsRange";
   labels?: string[];
   bgColors?: string[];
   borderColors?: string[];
@@ -27,6 +28,7 @@ interface ConfigsT {
   genderRange: PieChartDataT;
   currCountryRange: PieChartDataT;
   homelandRange: PieChartDataT;
+  institutionsRange: PieChartDataT;
 }
 
 interface PieChartDataT {
@@ -193,6 +195,18 @@ export function getChartConfig({
       ],
     },
     homelandRange: {
+      labels: labels || ["test1", "test2"],
+      datasets: [
+        {
+          label: "count",
+          data,
+          backgroundColor: get10Color("fill") || ["rgba(54, 162, 235, 0.2)"],
+          borderColor: get10Color("shade") || ["rgba(54, 162, 235, 1)"],
+          borderWidth: 1,
+        },
+      ],
+    },
+    institutionsRange: {
       labels: labels || ["test1", "test2"],
       datasets: [
         {

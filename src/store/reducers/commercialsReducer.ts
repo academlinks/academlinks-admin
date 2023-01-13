@@ -8,6 +8,7 @@ import {
   GetCommercialsPropsT,
   GetCommercialPropsT,
   DeleteCommercialPropsT,
+  OutdatedCommercialCountT,
 } from "../../interface/reducers/commercialReducer.types";
 
 import { CommercialT } from "../../interface/db/commercial.types";
@@ -44,6 +45,8 @@ const initialState: StateT = {
   },
 
   commercialCreatedSuccessfully: null,
+
+  outDatedCommercialsCount: 0,
 };
 
 const CommercialSlcie = createSlice({
@@ -181,6 +184,13 @@ const CommercialSlcie = createSlice({
         isEmpty: false,
         id: commercialId,
       };
+
+      const currDate = Date.now();
+      const outdatedCommercialsCount = state.commercials.filter(
+        (comerc) => new Date(comerc.validUntil).getTime() < currDate
+      ).length;
+
+      state.outDatedCommercialsCount = outdatedCommercialsCount;
     },
 
     deleteCommercial(
@@ -232,6 +242,13 @@ const CommercialSlcie = createSlice({
       };
     },
 
+    setOutDatedCommercialsCount(
+      state,
+      { payload }: PayloadAction<OutdatedCommercialCountT>
+    ) {
+      state.outDatedCommercialsCount = payload;
+    },
+
     /////SECTION: Dom Manipulation And Reset Helpers /////
 
     setCommercialTargetKey(
@@ -280,11 +297,12 @@ export const {
   setCommercial,
   deleteCommercial,
   setDeletedCommercial,
+  setOutDatedCommercialsCount,
   /////////////////////////////////////
   ///// Dom Manipulation And Reset Helpers /////
   ///////////////////////////////////
   setCommercialTargetKey,
   resetCommercial,
   resetCommercials,
-  setCommercialSuccessfullCreation
+  setCommercialSuccessfullCreation,
 } = CommercialSlcie.actions;

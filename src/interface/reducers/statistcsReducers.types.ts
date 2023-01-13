@@ -9,6 +9,7 @@ export interface StateT {
   byPosition: RangeByPositionT;
   byCurrentCountry: RangeByLivingPlaceT;
   byHomeLand: RangeByLivingPlaceT;
+  byInstitution: RangeByInstitutionT;
 }
 
 interface LoadingStateT {
@@ -40,6 +41,13 @@ interface RangeByPositionT {
   administrativPersonalCount: number;
   phdStudentCount: number;
   postDocFellowCount: number;
+}
+
+interface RangeByInstitutionT {
+  labels: string[];
+  range: number[];
+  total: number;
+  institutionsTotal: number;
 }
 
 interface RangeByLivingPlaceT {

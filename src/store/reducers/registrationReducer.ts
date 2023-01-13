@@ -10,6 +10,7 @@ import {
   GetRegistrationRequestDetailsPropsT,
   RequestMutationPropsT,
   FilterKeyT,
+  SetNewRegRequestCountT,
 } from "../../interface/reducers/registrationReducer.types";
 
 const initialState: StateT = {
@@ -30,6 +31,8 @@ const initialState: StateT = {
     error: false,
     message: "",
   },
+
+  registrationCounts: 0,
 
   registrationLabels: [],
 
@@ -185,6 +188,9 @@ const RegistrationSlice = createSlice({
         (reg) => reg._id !== registrationId
       );
 
+      if (state.registrationCounts > 0)
+        state.registrationCounts = state.registrationCounts - 1;
+
       updateLoadingState({
         state,
         key: "operationLoadingState",
@@ -198,6 +204,17 @@ const RegistrationSlice = createSlice({
 
     deleteRequest(state, { payload }: PayloadAction<RequestMutationPropsT>) {
       updateLoadingState({ state, key: "operationLoadingState" });
+    },
+
+    setUnseenRegRequestsQount(
+      state,
+      { payload }: PayloadAction<SetNewRegRequestCountT>
+    ) {
+      state.registrationCounts = payload;
+    },
+
+    setNewRegRequest(state, { payload }: PayloadAction<RegistrationLabelsT>) {
+      state.registrationLabels = [payload, ...state.registrationLabels];
     },
 
     ///// SECTION: Dom Manipulation And Trigerer Helpers /////
@@ -229,6 +246,8 @@ export const {
   removeRequest,
   resetRedirectAlert,
   deleteRequest,
+  setUnseenRegRequestsQount,
+  setNewRegRequest,
   aproveRequest,
 } = RegistrationSlice.actions;
 

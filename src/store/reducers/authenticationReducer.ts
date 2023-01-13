@@ -28,8 +28,10 @@ const authSlice = createSlice({
       localStorage.removeItem("academind_admin_passport");
       state.isAuthenticated = false;
     },
+
+    getAppBadges() {},
   },
 });
 
 export default authSlice.reducer;
-export const { login, setAdmin, logOut } = authSlice.actions;
+export const { login, setAdmin, logOut, getAppBadges } = authSlice.actions;

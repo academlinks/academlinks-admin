@@ -8,12 +8,13 @@ export interface StateT {
   contentLoadingState: LoadingStateT;
   operationLoadingState: LoadingStateT;
   registrationLabels: RegistrationLabelsT[];
+  registrationCounts: number;
   requestDetails?: RegistrationRequestDetailsT;
+  filterKey: FilterKeyT;
   redirectAlert: {
     redirect: boolean;
     path: "empty" | string;
   };
-  filterKey: FilterKeyT;
 }
 
 interface LoadingStateT {
@@ -31,3 +32,7 @@ export interface RequestMutationPropsT {
 }
 
 export type FilterKeyT = "aproved" | "new";
+
+// props
+
+export type SetNewRegRequestCountT = number;

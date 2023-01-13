@@ -46,6 +46,13 @@ const initialState: StateT = {
     countriesTotal: NaN,
     total: NaN,
   },
+
+  byInstitution: {
+    labels: [],
+    range: [],
+    institutionsTotal: NaN,
+    total: NaN,
+  },
 };
 
 const statisticSlice = createSlice({
@@ -256,6 +263,25 @@ const statisticSlice = createSlice({
         total: state.users.length,
       };
     },
+
+    setRangeByInstitution(state) {
+      const labels = Array.from(
+        new Set(state.users.map((user) => user.currentWorkplace.institution))
+      );
+
+      const range = labels.map((label) => {
+        return state.users.filter(
+          (user) => user.currentWorkplace.institution === label
+        ).length;
+      });
+
+      state.byInstitution = {
+        labels,
+        range,
+        institutionsTotal: labels.length,
+        total: state.users.length,
+      };
+    },
   },
 });
 
@@ -271,4 +297,5 @@ export const {
   setUsersRangeByPosition,
   setRangeByCurrCountry,
   setRangeByHomeLand,
+  setRangeByInstitution,
 } = statisticSlice.actions;

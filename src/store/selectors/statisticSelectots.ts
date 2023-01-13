@@ -15,6 +15,9 @@ export const selectStatisticRegDates = ({ statistics }: RootStateT) =>
 export const selectStatisticByPosition = ({ statistics }: RootStateT) =>
   statistics.byPosition;
 
+export const selectStatisticByInstitution = ({ statistics }: RootStateT) =>
+  statistics.byInstitution;
+
 export const selectStatisticByCurrCountry = ({ statistics }: RootStateT) =>
   statistics.byCurrentCountry;
 

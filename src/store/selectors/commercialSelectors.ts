@@ -25,6 +25,9 @@ export const selectCommercialsList = ({ commercials }: RootStateT) =>
 export const selectCommercial = ({ commercials }: RootStateT) =>
   commercials.commercial;
 
+export const selectOutdateCommercialsCount = ({ commercials }: RootStateT) =>
+  commercials.outDatedCommercialsCount;
+
 ///////////////////////////
 ///// Commercial Nav /////
 /////////////////////////

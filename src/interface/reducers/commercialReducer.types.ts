@@ -9,6 +9,7 @@ export interface StateT {
   commercial?: CommercialT | null;
   getNewCommercialAlert: GetNewCommercialAlert;
   commercialCreatedSuccessfully: null | boolean;
+  outDatedCommercialsCount: OutdatedCommercialCountT;
 }
 
 interface LoadingStateT {
@@ -54,3 +55,5 @@ export interface GetCommercialPropsT {
 export interface DeleteCommercialPropsT {
   commercialId: string;
 }
+
+export type OutdatedCommercialCountT = number;

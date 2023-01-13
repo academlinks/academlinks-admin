@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { useAppSelector } from "../../store/hooks";
 import { useUsersQuery } from "../../hooks";
@@ -13,12 +13,10 @@ import {
   DetailedWorkplace,
   DetailedEducationItem,
   DetailedCurrentWorkplace,
-  Button,
   Spinner,
   Error,
+  UserDetailsHeader,
 } from "../Layouts";
-
-import MediaModal from "./MediaModal";
 
 import {
   FaRegRegistered,
@@ -39,8 +37,6 @@ const UserDetails: React.FC = () => {
 
   const { deleteUserQuery, handleResetOperationError } = useUsersQuery();
 
-  const [openMedia, setOpenMedia] = useState(false);
-
   return (
     <div className="user-details--container">
       {loading && <Spinner type="stand" />}
@@ -53,38 +49,12 @@ const UserDetails: React.FC = () => {
         />
       )}
 
-      {openMedia && (
-        <MediaModal
-          fig={userDetails.profileImg}
-          onClose={() => setOpenMedia(false)}
-        />
-      )}
-
       {userDetails && (
         <>
-          <div className="details-header">
-            <figure
-              className="details-header__fig"
-              onClick={(e) => {
-                e.stopPropagation();
-                setOpenMedia(true);
-              }}
-            >
-              <img src={userDetails.profileImg} alt={userDetails.userName} />
-            </figure>
-
-            <span className="details-header__userName">
-              {userDetails.userName}
-            </span>
-
-            <span className="details-header__email">{userDetails.email}</span>
-
-            <Button
-              label="delete user"
-              task="delete"
-              onClick={() => deleteUserQuery({ userId: userDetails._id })}
-            />
-          </div>
+          <UserDetailsHeader
+            userDetails={userDetails}
+            deleteUserHandler={deleteUserQuery}
+          />
 
           <div className="details-info">
             <DetailedItem

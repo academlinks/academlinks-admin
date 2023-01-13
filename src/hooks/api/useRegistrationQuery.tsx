@@ -5,6 +5,7 @@ import {
   getRegistrationRequesDetails,
   aproveRequest,
   deleteRequest,
+  setNewRegRequest,
   // NaN API Tasks
   resetOperationError,
   resetRedirectAlert,
@@ -16,6 +17,8 @@ import {
   RequestMutationPropsT,
   FilterKeyT,
 } from "../../interface/reducers/registrationReducer.types";
+
+import { RegistrationLabelsT } from "../../interface/db/registration.types";
 
 export default function useRegistrationQuery() {
   const dispatch = useAppDispatch();
@@ -39,6 +42,10 @@ export default function useRegistrationQuery() {
   }
 
   //NaN API Task
+  function setNewRegRequestHandler(params: RegistrationLabelsT) {
+    dispatch(setNewRegRequest(params));
+  }
+
   function handleResetRedirectAlert() {
     dispatch(resetRedirectAlert());
   }
@@ -57,6 +64,7 @@ export default function useRegistrationQuery() {
     aproveRequestQuery,
     deleteRequestQuery,
     //NaN API Task
+    setNewRegRequestHandler,
     handleResetRedirectAlert,
     handleFilterKey,
     handleResetOperationError,

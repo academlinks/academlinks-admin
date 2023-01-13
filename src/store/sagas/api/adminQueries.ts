@@ -9,3 +9,7 @@ export async function loginQuery({ userName, password }: AuthCredentialsT) {
 export async function logoutQuery() {
   return await axiosQuery.post("/authentication/logout");
 }
+
+export async function getBadgesQuery() {
+  return await axiosQuery("/administration/badges");
+}

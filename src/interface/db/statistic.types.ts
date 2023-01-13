@@ -10,6 +10,7 @@ export interface UserForStatisticT {
 
 interface CurrentWorkplace {
   position: string;
+  institution: string;
 }
 
 interface LivingPlaceT {

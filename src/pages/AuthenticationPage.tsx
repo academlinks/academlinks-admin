@@ -6,7 +6,7 @@ import {
 } from "../components/Authentication/authentication.styles";
 import { Button } from "../components/Layouts";
 
-import { useAuthQuery } from "../hooks";
+import { useAdminQuery } from "../hooks";
 
 interface AuthenticationType {}
 
@@ -14,7 +14,7 @@ const AuthenticationPage: React.FC<AuthenticationType> = (props) => {
   const [userName, setUserName] = useState("admin_mark");
   const [password, setPassword] = useState("sh12mk3tt_7xxAdmin");
 
-  const { loginQuery } = useAuthQuery();
+  const { loginQuery } = useAdminQuery();
 
   // Input Handlers
   const [userNameError, setUserNameError] = useState({

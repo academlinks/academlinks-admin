@@ -10,6 +10,7 @@ const routes = [
   { label: "registration dates", route: "reg-dates" },
   { label: "gender", route: "gender" },
   { label: "users by position", route: "position" },
+  { label: "users by institution", route: "institution" },
   { label: "users age range", route: "age-range" },
   { label: "users by current living place", route: "geo-current" },
   { label: "users by homeland", route: "geo-home" },

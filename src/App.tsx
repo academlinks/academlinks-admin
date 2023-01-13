@@ -41,6 +41,15 @@ const UsersByCurrentCountryPage = lazy(
 const UsersByHomelandPage = lazy(
   () => import("./pages/Statistics/UsersByHomelandPage")
 );
+const UsersByInstitutionPage = lazy(
+  () => import("./pages/Statistics/UsersByInstitutionPage")
+);
+const NotificationsPage = lazy(
+  () => import("./pages/Notifications/NotificationsPage")
+);
+const ActiveNotificationsPage = lazy(
+  () => import("./pages/Notifications/ActiveNotificationsPage")
+);
 
 function App() {
   return (
@@ -52,26 +61,37 @@ function App() {
             <Route path="users" element={<UsersPage />}>
               <Route path=":userId" element={<UserDetailsPage />} />
             </Route>
+
             <Route
               path="registration-requests"
               element={<RegistrationRequestsPage />}
             >
               <Route path=":requestId" element={<RegistrationDetailedPage />} />
             </Route>
+
             <Route path="commercials" element={<CommercialsPage />}>
               <Route path="create" element={<CreateCommercialPage />} />
               <Route path=":commercialId" element={<ActiveCommercialPage />} />
             </Route>
+
             <Route path="statistics" element={<StatisticsPage />}>
               <Route path="reg-dates" element={<UserRegDatesPage />} />
               <Route path="gender" element={<UsersByGenderPage />} />
               <Route path="position" element={<UsersByPositionPage />} />
+              <Route path="institution" element={<UsersByInstitutionPage />} />
               <Route path="age-range" element={<UsersAgeRangePage />} />
               <Route
                 path="geo-current"
                 element={<UsersByCurrentCountryPage />}
               />
               <Route path="geo-home" element={<UsersByHomelandPage />} />
+            </Route>
+
+            <Route path="notifications" element={<NotificationsPage />}>
+              <Route
+                path=":notificationId"
+                element={<ActiveNotificationsPage />}
+              />
             </Route>
           </Route>
         </Route>

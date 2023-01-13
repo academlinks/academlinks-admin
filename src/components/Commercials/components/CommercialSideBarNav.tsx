@@ -4,7 +4,10 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 import { useAppSelector } from "../../../store/hooks";
 
-import { selectCommercialTarget } from "../../../store/selectors/commercialSelectors";
+import {
+  selectCommercialTarget,
+  selectOutdateCommercialsCount,
+} from "../../../store/selectors/commercialSelectors";
 import { useCommercials } from "../../../hooks";
 
 import { Button } from "../../Layouts";
@@ -14,6 +17,10 @@ import { CommercialTargetT } from "../../../interface/reducers/commercialReducer
 const CommercialSideBarNav: React.FC = () => {
   const navigate = useNavigate();
 
+  const outdatedCommercialsCount = useAppSelector(
+    selectOutdateCommercialsCount
+  );
+
   const { search, pathname } = useLocation();
   const avalableTargets: CommercialTargetT[] = [
     "all",
@@ -21,6 +28,7 @@ const CommercialSideBarNav: React.FC = () => {
     "active",
     "create",
   ];
+
   const target = avalableTargets.find(
     (aim) => aim === search.split("=")[0].replace("?", "") && aim !== "create"
   );
@@ -56,15 +64,24 @@ const CommercialSideBarNav: React.FC = () => {
           navigate("/dashboard/commercials?active=true");
         }}
       />
-      <Button
-        className="commercials-target-btn"
-        label="outdated"
-        task={targetKey === "outdated" ? "aprove" : "cancel"}
-        onClick={() => {
-          handleCommercialTarget("outdated");
-          navigate("/dashboard/commercials?outdated=true");
-        }}
-      />
+
+      <div className="outdated-commercials--btn__box">
+        <Button
+          className="commercials-target-btn"
+          label="outdated"
+          task={targetKey === "outdated" ? "aprove" : "cancel"}
+          onClick={() => {
+            handleCommercialTarget("outdated");
+            navigate("/dashboard/commercials?outdated=true");
+          }}
+        />
+        {outdatedCommercialsCount && outdatedCommercialsCount > 0 && (
+          <span className="outdated-commercials--btn__box-badge">
+            {outdatedCommercialsCount}
+          </span>
+        )}
+      </div>
+
       <Button
         className="commercials-target-btn"
         label="all"

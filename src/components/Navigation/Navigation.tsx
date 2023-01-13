@@ -1,10 +1,16 @@
-import React, { useContext } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useEffect } from "react";
+import { NavLink } from "react-router-dom";
+import { nanoid } from "@reduxjs/toolkit";
+
 import { ThemeContext } from "../../Theme";
 
-import { nanoid } from "@reduxjs/toolkit";
-import { NavLink } from "react-router-dom";
+import { useAdminQuery } from "../../hooks";
+import { useAppSelector } from "../../store/hooks";
 
-import { useAuthQuery } from "../../hooks";
+import { selectUnseenRequestsCount } from "../../store/selectors/registrationSelectors";
+import { selectUnseenNotifiesCount } from "../../store/selectors/notificationSelectors";
+import { selectOutdateCommercialsCount } from "../../store/selectors/commercialSelectors";
 
 import { Nav } from "./nav.styles";
 import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs";
@@ -30,11 +36,26 @@ const navRoutes = [
     id: nanoid(),
     path: "statistics",
   },
+  {
+    label: "notifications",
+    id: nanoid(),
+    path: "notifications",
+  },
 ];
 
 const Navigation: React.FC = () => {
   const { changeThemeHandler, mode } = useContext(ThemeContext);
-  const { logoutQuery } = useAuthQuery();
+  const { logoutQuery, getAppBadgesQuery } = useAdminQuery();
+
+  const unseenReqCount = useAppSelector(selectUnseenRequestsCount);
+  const unseenNotifiesCount = useAppSelector(selectUnseenNotifiesCount);
+  const outdatedCommercialsCount = useAppSelector(
+    selectOutdateCommercialsCount
+  );
+
+  useEffect(() => {
+    getAppBadgesQuery();
+  }, []);
 
   return (
     <Nav data-page-navigation>
@@ -46,6 +67,7 @@ const Navigation: React.FC = () => {
           log out
         </button>
       </div>
+
       <ul className="nav-list">
         {navRoutes.map((route) => (
           <NavLink
@@ -56,6 +78,16 @@ const Navigation: React.FC = () => {
             }
           >
             {route.label}
+            {route.path === "registration-requests" && unseenReqCount > 0 && (
+              <span className="nav-badge">{unseenReqCount}</span>
+            )}
+            {route.path === "notifications" && unseenNotifiesCount > 0 && (
+              <span className="nav-badge">{unseenNotifiesCount}</span>
+            )}
+            {route.path === "commercials?active=true" &&
+              outdatedCommercialsCount > 0 && (
+                <span className="nav-badge">{outdatedCommercialsCount}</span>
+              )}
           </NavLink>
         ))}
       </ul>

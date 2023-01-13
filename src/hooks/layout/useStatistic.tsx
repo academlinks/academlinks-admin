@@ -7,6 +7,7 @@ import {
   setUsersRangeByPosition,
   setRangeByCurrCountry,
   setRangeByHomeLand,
+  setRangeByInstitution,
 } from "../../store/reducers/statisticReducer";
 
 import { SetRangeByRegDateT } from "../../interface/reducers/statistcsReducers.types";
@@ -38,6 +39,10 @@ export default function useStatistic() {
     dispatch(setRangeByHomeLand());
   }
 
+  function setInstitutionRange() {
+    dispatch(setRangeByInstitution());
+  }
+
   return {
     setAgeRange,
     setRegDateRange,
@@ -45,5 +50,6 @@ export default function useStatistic() {
     setPositionRange,
     setCurrCountryRange,
     setHomelandRange,
+    setInstitutionRange,
   };
 }
