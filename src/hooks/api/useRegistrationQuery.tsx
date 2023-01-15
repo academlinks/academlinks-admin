@@ -6,6 +6,7 @@ import {
   aproveRequest,
   deleteRequest,
   setNewRegRequest,
+  encreaseUnseenRegRequestsCount,
   // NaN API Tasks
   resetOperationError,
   resetRedirectAlert,
@@ -46,6 +47,10 @@ export default function useRegistrationQuery() {
     dispatch(setNewRegRequest(params));
   }
 
+  function handleEncreaseUnseenRegRequestCount() {
+    dispatch(encreaseUnseenRegRequestsCount());
+  }
+
   function handleResetRedirectAlert() {
     dispatch(resetRedirectAlert());
   }
@@ -65,6 +70,7 @@ export default function useRegistrationQuery() {
     deleteRequestQuery,
     //NaN API Task
     setNewRegRequestHandler,
+    handleEncreaseUnseenRegRequestCount,
     handleResetRedirectAlert,
     handleFilterKey,
     handleResetOperationError,

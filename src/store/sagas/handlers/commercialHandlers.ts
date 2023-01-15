@@ -12,6 +12,7 @@ import {
   setDeletedCommercial,
   setUpdatedCommercial,
   setCommercialSuccessfullCreation,
+  setEmailSuccessfullySend,
 } from "../../reducers/commercialsReducer";
 
 import {
@@ -20,6 +21,7 @@ import {
   getCommercialQuery,
   deleteCommercialQuery,
   updateCommercialQuery,
+  sendEmailQuery,
 } from "../api/commercialQueries";
 
 import {
@@ -28,6 +30,7 @@ import {
   GetCommercialsPropsT,
   GetCommercialPropsT,
   DeleteCommercialPropsT,
+  SendEmailPropsT,
 } from "../../../interface/reducers/commercialReducer.types";
 
 export function* createCommercialHandler({
@@ -128,5 +131,14 @@ export function* getCommercialsHandler({
         message: errorMessages.load,
       },
     });
+  }
+}
+
+export function* sendEmailHandler({ payload }: { payload: SendEmailPropsT }) {
+  try {
+    yield call(sendEmailQuery, payload);
+    yield put(setEmailSuccessfullySend(true));
+  } catch (error: any) {
+    yield showError({ error, location: "sendEmailHandler" });
   }
 }

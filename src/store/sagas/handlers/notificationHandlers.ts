@@ -66,7 +66,7 @@ export function* getNotificationHandler({
 
 export function* deleteAllNotificationsHandler() {
   try {
-    // yield call(deleteAllNotificationsQuery);
+    yield call(deleteAllNotificationsQuery);
     yield put(setDeletedNotifications());
   } catch (error: any) {
     yield showError({
@@ -86,7 +86,7 @@ export function* deleteNotificationHandler({
   payload: DeleteNotificationT;
 }) {
   try {
-    // yield call(deleteNotificationQuery, payload);
+    yield call(deleteNotificationQuery, payload);
     yield put(setDeletedNotification(payload));
   } catch (error: any) {
     yield showError({
@@ -102,7 +102,7 @@ export function* deleteNotificationHandler({
 
 export function* markNotificationsAsSeenHandler() {
   try {
-    // yield call(markNotificationsAsSeenQuery);
+    yield call(markNotificationsAsSeenQuery);
     yield put(setNotificationsAsSeen());
   } catch (error: any) {
     yield showError({
@@ -122,7 +122,7 @@ export function* markNotificationAsReadHandler({
   payload: MarkNotificationAsReadT;
 }) {
   try {
-    // yield call(markNotificationAsReadQuery, payload);
+    yield call(markNotificationAsReadQuery, payload);
     yield put(setMarkNotificationAsRead(payload));
   } catch (error: any) {
     yield showError({

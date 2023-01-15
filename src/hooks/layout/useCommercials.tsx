@@ -4,6 +4,7 @@ import {
   setCommercialTargetKey,
   resetCommercial,
   resetCommercials,
+  setEmailSuccessfullySend,
 } from "../../store/reducers/commercialsReducer";
 import { CommercialTargetT } from "../../interface/reducers/commercialReducer.types";
 
@@ -22,9 +23,14 @@ export default function useCommercials() {
     dispatch(resetCommercials());
   }
 
+  function handleEmailSuccessfullySend(param: boolean) {
+    dispatch(setEmailSuccessfullySend(param));
+  }
+
   return {
     handleCommercialTarget,
     handleResetCommercial,
     handleResetCommercials,
+    handleEmailSuccessfullySend,
   };
 }

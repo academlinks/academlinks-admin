@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { persistStore } from "redux-persist";
 import root from "./reducers/root";
 
 import createSagaMiddleware from "@redux-saga/core";
@@ -18,3 +19,5 @@ export type RootStateT = ReturnType<typeof store.getState>;
 export type DispatchT = typeof store.dispatch;
 
 initSagas(sagaMiddleware);
+
+export const persistore = persistStore(store);

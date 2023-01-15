@@ -79,6 +79,16 @@ const notificationSlice = createSlice({
       });
     },
 
+    resetOperationError(state) {
+      updateLoadingState({
+        state,
+        key: "operationLoadingState",
+        loading: false,
+        error: false,
+        message: "",
+      });
+    },
+
     /////////////////////////////
 
     setUnseenNotificationsCount(
@@ -86,6 +96,10 @@ const notificationSlice = createSlice({
       { payload }: PayloadAction<UnseenNotifiesCountT>
     ) {
       state.unseenNotifiesCount = payload;
+    },
+
+    encreaseUnseenNotificationCount(state) {
+      state.unseenNotifiesCount = state.unseenNotifiesCount += 1;
     },
 
     getNotifications(state) {
@@ -108,6 +122,10 @@ const notificationSlice = createSlice({
       updateLoadingState({ state, key: "contentLoadingState", loading: false });
     },
 
+    setNewNotificationInList(state, { payload }: PayloadAction<NotificationT>) {
+      state.notifications.unshift(payload);
+    },
+
     deleteNotification(state, { payload }: PayloadAction<DeleteNotificationT>) {
       updateLoadingState({ state, key: "operationLoadingState" });
     },
@@ -119,6 +137,12 @@ const notificationSlice = createSlice({
       state.notifications = state.notifications.filter(
         (notify) => notify._id !== notifyId
       );
+
+      updateLoadingState({
+        state,
+        key: "operationLoadingState",
+        loading: false,
+      });
     },
 
     deleteAllNotification(state) {
@@ -127,6 +151,12 @@ const notificationSlice = createSlice({
 
     setDeletedNotifications(state) {
       state.notifications = [];
+
+      updateLoadingState({
+        state,
+        key: "operationLoadingState",
+        loading: false,
+      });
     },
 
     markNotificationsAsSeen(state) {
@@ -134,8 +164,18 @@ const notificationSlice = createSlice({
     },
 
     setNotificationsAsSeen(state) {
-      state.notifications.forEach((notify) => (notify.seen = true));
+      state.notifications = state.notifications.map((notify) => ({
+        ...notify,
+        seen: true,
+      }));
+
       state.unseenNotifiesCount = 0;
+
+      updateLoadingState({
+        state,
+        key: "operationLoadingState",
+        loading: false,
+      });
     },
 
     markNotificationAsRead(
@@ -166,11 +206,14 @@ export const {
   setSideBarError,
   setContentError,
   setOperationError,
+  resetOperationError,
   setUnseenNotificationsCount,
+  encreaseUnseenNotificationCount,
   getNotifications,
   setNotifications,
   getNotification,
   setNotification,
+  setNewNotificationInList,
   deleteAllNotification,
   setDeletedNotifications,
   deleteNotification,

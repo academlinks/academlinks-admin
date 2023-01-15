@@ -3,13 +3,16 @@ import { NavLink } from "react-router-dom";
 
 import { BsThreeDots } from "react-icons/bs";
 
+import { NotificationT } from "../../interface/db/notification.types";
 interface NotifyItemType {
-  notify: {
-    _id: string;
-  };
+  notify: NotificationT;
+  deleteNotifyHandler: (params: { notifyId: string }) => void;
 }
 
-const NotifyItem: React.FC<NotifyItemType> = ({ notify }) => {
+const NotifyItem: React.FC<NotifyItemType> = ({
+  notify,
+  deleteNotifyHandler,
+}) => {
   const [openOptions, setOpenOptions] = useState(false);
 
   return (
@@ -17,21 +20,18 @@ const NotifyItem: React.FC<NotifyItemType> = ({ notify }) => {
       to={notify._id}
       onMouseLeave={() => openOptions && setOpenOptions(false)}
       className={({ isActive }) =>
-        `${isActive ? "active-notify" : ""} notify-item`
+        `${isActive ? "active-notify" : ""} notify-item ${
+          !notify.read ? "unread" : ""
+        }`
       }
     >
       <figure className="notify-item__fig">
-        <img
-          src={
-            "https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png"
-          }
-          alt={""}
-        />
+        <img src={notify.from.profileImg} alt={notify.from.userName} />
       </figure>
 
       <div className="notify-item__details">
-        <strong className="userName">user name</strong>
-        <span> change email</span>
+        <strong className="userName">{notify.from.userName}</strong>
+        <span>&nbsp;{notify.message}</span>
       </div>
 
       <button
@@ -51,6 +51,7 @@ const NotifyItem: React.FC<NotifyItemType> = ({ notify }) => {
             onClick={(e) => {
               e.stopPropagation();
               e.preventDefault();
+              deleteNotifyHandler({ notifyId: notify._id });
             }}
           >
             delete

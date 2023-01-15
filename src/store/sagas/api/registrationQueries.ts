@@ -19,7 +19,6 @@ export async function getRegistrationRequestDetailsQuery({
 export async function deleteRequestQuery({
   registrationId,
 }: RequestMutationPropsT) {
-  console.log("runs query");
   return await axiosQuery.delete(
     `/authentication/aprove-register/${registrationId}`
   );

@@ -1,7 +1,7 @@
 import { call, put } from "redux-saga/effects";
 import { showError } from "./errorHandler";
 
-import { setAdmin } from "../../reducers/authenticationReducer";
+import { setAdmin } from "../../reducers/adminReducer";
 import { setUnseenRegRequestsQount } from "../../reducers/registrationReducer";
 import { setUnseenNotificationsCount } from "../../reducers/notificationReducer";
 import { setOutDatedCommercialsCount } from "../../reducers/commercialsReducer";

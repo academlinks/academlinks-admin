@@ -1,4 +1,4 @@
-import axios from "axios";
+import axioss from "axios";
 import decode from "jwt-decode";
 
 function getJWT() {
@@ -7,23 +7,27 @@ function getJWT() {
     : null;
 }
 
-const refresher = axios.create({
+const refresher = axioss.create({
   baseURL: `${process.env.REACT_APP_API_END_POINT}/authentication/refresh`,
   withCredentials: true,
   method: "GET",
 });
 
-export const axiosQuery = axios.create({
+export const axiosQuery = axioss.create({
   baseURL: process.env.REACT_APP_API_END_POINT,
   withCredentials: true,
 });
 
-export const axiosFormDataQuery = axios.create({
+export const axiosFormDataQuery = axioss.create({
   baseURL: process.env.REACT_APP_API_END_POINT,
   withCredentials: true,
   headers: {
     "content-type": "multipart/form-data",
   },
+});
+
+export const axios = axioss.create({
+  baseURL: process.env.REACT_APP_API_END_POINT,
 });
 
 let refreshTokenPromise;

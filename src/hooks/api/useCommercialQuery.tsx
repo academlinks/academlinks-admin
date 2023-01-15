@@ -8,6 +8,7 @@ import {
   getCommercial,
   deleteCommercial,
   setCommercialSuccessfullCreation,
+  sendEmail,
 } from "../../store/reducers/commercialsReducer";
 
 import {
@@ -15,6 +16,7 @@ import {
   GetCommercialsPropsT,
   GetCommercialPropsT,
   DeleteCommercialPropsT,
+  SendEmailPropsT,
 } from "../../interface/reducers/commercialReducer.types";
 
 type CommercialDefaultBody = Omit<CreateCommercialPropsT, "location"> & {
@@ -83,6 +85,10 @@ export default function useCommercialQuery() {
     dispatch(setCommercialSuccessfullCreation(params));
   }
 
+  function sendEmailQuery(params: SendEmailPropsT) {
+    dispatch(sendEmail(params));
+  }
+
   return {
     handleResetOperationError,
     createCommercialQuery,
@@ -91,5 +97,6 @@ export default function useCommercialQuery() {
     getCommercialQuery,
     deleteCommercialQuery,
     handleSetCommercialSuccessfullCreation,
+    sendEmailQuery,
   };
 }

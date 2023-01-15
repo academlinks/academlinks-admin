@@ -37,6 +37,7 @@ const FillterBox: React.FC = () => {
     e: React.MouseEvent<HTMLButtonElement> & { target: { value: FilterKeysT } }
   ) {
     const target: FilterKeysT = e.target.value;
+
     setTabs((prev) => ({
       ...prev,
       [target]: !tabs[target],
@@ -65,16 +66,16 @@ const FillterBox: React.FC = () => {
   function resetFilterBox() {
     handleResetFilter();
     handleResetLocaleFilter();
-    
+
     setTabs((prev) => ({
       ...prev,
-      [TAB_KEYS.USER_NAME]: !prev[TAB_KEYS.USER_NAME],
-      [TAB_KEYS.LIVING_PLACE]: !prev[TAB_KEYS.LIVING_PLACE],
-      [TAB_KEYS.REGISTRATION]: !prev[TAB_KEYS.REGISTRATION],
-      [TAB_KEYS.BIRTHDATE]: !prev[TAB_KEYS.BIRTHDATE],
-      [TAB_KEYS.POSITION]: !prev[TAB_KEYS.POSITION],
-      [TAB_KEYS.GENDER]: !prev[TAB_KEYS.GENDER],
-      [TAB_KEYS.SORT]: !prev[TAB_KEYS.SORT],
+      [TAB_KEYS.USER_NAME]: false,
+      [TAB_KEYS.LIVING_PLACE]: false,
+      [TAB_KEYS.REGISTRATION]: false,
+      [TAB_KEYS.BIRTHDATE]: false,
+      [TAB_KEYS.POSITION]: false,
+      [TAB_KEYS.GENDER]: false,
+      [TAB_KEYS.SORT]: false,
     }));
   }
 
@@ -82,7 +83,7 @@ const FillterBox: React.FC = () => {
     const timer = setTimeout(() => {
       const queryStr = generateFilterQuery(filter);
       setQuery(queryStr);
-    }, 1500);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, [filter]);
@@ -98,6 +99,7 @@ const FillterBox: React.FC = () => {
           >
             fillter by username
           </button>
+
           {tabs[TAB_KEYS.USER_NAME] && (
             <div className="tab-content">
               <div className="inp-field">
@@ -112,6 +114,7 @@ const FillterBox: React.FC = () => {
             </div>
           )}
         </TabContainer>
+
         <TabContainer data-tab>
           <button
             value={TAB_KEYS.LIVING_PLACE}
@@ -120,6 +123,7 @@ const FillterBox: React.FC = () => {
           >
             fillter by living place
           </button>
+
           {tabs[TAB_KEYS.LIVING_PLACE] && (
             <div className="tab-content">
               <div className="inp-field">
@@ -137,6 +141,7 @@ const FillterBox: React.FC = () => {
                   }
                 />
               </div>
+
               <div className="inp-field">
                 <label className="inp-field__label">from city</label>
                 <input
@@ -152,6 +157,7 @@ const FillterBox: React.FC = () => {
                   }
                 />
               </div>
+
               <div className="inp-field">
                 <label className="inp-field__label">
                   currently lives in country
@@ -169,6 +175,7 @@ const FillterBox: React.FC = () => {
                   }
                 />
               </div>
+
               <div className="inp-field">
                 <label className="inp-field__label">
                   currently lives in city
@@ -189,6 +196,7 @@ const FillterBox: React.FC = () => {
             </div>
           )}
         </TabContainer>
+
         <TabContainer data-tab>
           <button
             value={TAB_KEYS.REGISTRATION}
@@ -197,6 +205,7 @@ const FillterBox: React.FC = () => {
           >
             fillter by registration date
           </button>
+
           {tabs[TAB_KEYS.REGISTRATION] && (
             <div className="tab-content">
               <div className="inp-field">
@@ -213,6 +222,7 @@ const FillterBox: React.FC = () => {
                   }
                 />
               </div>
+
               <div className="inp-field">
                 <label className="inp-field__label">date to</label>
                 <input
@@ -230,6 +240,7 @@ const FillterBox: React.FC = () => {
             </div>
           )}
         </TabContainer>
+
         <TabContainer data-tab>
           <button
             value={TAB_KEYS.BIRTHDATE}
@@ -238,6 +249,7 @@ const FillterBox: React.FC = () => {
           >
             fillter by birthdate
           </button>
+
           {tabs[TAB_KEYS.BIRTHDATE] && (
             <div className="tab-content">
               <div className="inp-field">
@@ -251,6 +263,7 @@ const FillterBox: React.FC = () => {
                   }
                 />
               </div>
+
               <div className="inp-field">
                 <label className="inp-field__label">date to</label>
                 <input
@@ -265,6 +278,7 @@ const FillterBox: React.FC = () => {
             </div>
           )}
         </TabContainer>
+
         <TabContainer data-tab>
           <button
             value={TAB_KEYS.POSITION}
@@ -273,6 +287,7 @@ const FillterBox: React.FC = () => {
           >
             position
           </button>
+
           {tabs[TAB_KEYS.POSITION] && (
             <div className="tab-content">
               {FilterPositionKeys.map((key) => (
@@ -294,6 +309,7 @@ const FillterBox: React.FC = () => {
             </div>
           )}
         </TabContainer>
+
         <TabContainer data-tab>
           <button
             value={TAB_KEYS.GENDER}
@@ -302,6 +318,7 @@ const FillterBox: React.FC = () => {
           >
             gender
           </button>
+
           {tabs[TAB_KEYS.GENDER] && (
             <div className="tab-content">
               {FilterGenderKeys.map(
@@ -326,10 +343,12 @@ const FillterBox: React.FC = () => {
             </div>
           )}
         </TabContainer>
+
         <TabContainer data-tab className={tabs[TAB_KEYS.SORT] ? "active" : ""}>
           <button value={TAB_KEYS.SORT} onClick={handleTab} className="tab-btn">
             sort by
           </button>
+
           {tabs[TAB_KEYS.SORT] && (
             <div className="tab-content last">
               {FilterSortKeys.map(
@@ -355,6 +374,7 @@ const FillterBox: React.FC = () => {
           )}
         </TabContainer>
       </FilterBoxContainer>
+
       <Button label="search" onClick={() => getUserLabelsQuery({ query })} />
       <Button label="reset filter" onClick={() => resetFilterBox()} />
     </>

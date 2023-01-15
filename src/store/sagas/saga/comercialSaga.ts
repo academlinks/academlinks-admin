@@ -6,6 +6,7 @@ import {
   getCommercial,
   deleteCommercial,
   updateCommercial,
+  sendEmail,
 } from "../../reducers/commercialsReducer";
 
 import {
@@ -14,6 +15,7 @@ import {
   getCommercialHandler,
   deleteCommercialHandler,
   updateCommercialHandler,
+  sendEmailHandler,
 } from "../handlers/commercialHandlers";
 
 export default function* commercialSaga() {
@@ -22,4 +24,5 @@ export default function* commercialSaga() {
   yield takeLatest(deleteCommercial, deleteCommercialHandler);
   yield takeLatest(getCommercial, getCommercialHandler);
   yield takeLatest(getCommercials, getCommercialsHandler);
+  yield takeLatest(sendEmail, sendEmailHandler);
 }

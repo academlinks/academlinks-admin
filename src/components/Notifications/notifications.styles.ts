@@ -6,7 +6,22 @@ export const NotificationsContainer = styled.div`
   flex-direction: row;
 
   .notifications-aside {
-    ${nestedAside}
+    ${nestedAside};
+    position: relative;
+
+    .delete-all--box {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 1rem;
+
+      button {
+        font-size: ${({ theme }) => theme.fontSizes.sm};
+        color: ${({ theme }) => theme.colors.white};
+        background: ${({ theme }) => theme.colors.redShade};
+        padding: 1rem;
+        border-radius: ${({ theme }) => theme.rounded.sm};
+      }
+    }
 
     .notifications-list {
       display: flex;
@@ -20,6 +35,30 @@ export const NotificationsContainer = styled.div`
         align-items: center;
         gap: 0.5rem;
         border-radius: ${({ theme }) => theme.rounded.sm};
+
+        &.unread {
+          background: ${({ theme }) =>
+            theme.mode === "dark"
+              ? "rgba(299, 299, 299, 0.5) "
+              : "rgba(0,0,0,0.5)"};
+
+          color: ${({ theme }) => theme.colors.white};
+
+          &::after {
+            content: "";
+            position: absolute;
+            z-index: 88;
+            top: 0.4rem;
+            right: 0.3rem;
+            width: 1.2rem;
+            height: 1.2rem;
+            border-radius: 100%;
+            background: ${({ theme }) =>
+              theme.mode === "dark"
+                ? theme.colors.redShade
+                : theme.colors.blue};
+          }
+        }
 
         &__fig {
           width: 5rem;
@@ -57,7 +96,7 @@ export const NotificationsContainer = styled.div`
           padding: 0.5rem;
           min-width: 12rem;
           border-radius: ${({ theme }) => theme.rounded.xsm};
-          border:1px solid ${({ theme }) => theme.colors.darkGray};
+          border: 1px solid ${({ theme }) => theme.colors.darkGray};
           background: ${({ theme }) => theme.colors.white};
           color: ${({ theme }) => theme.colors.darkGray};
 
@@ -73,6 +112,7 @@ export const NotificationsContainer = styled.div`
 
   .notifications-content {
     flex: 1;
+    position: relative;
   }
 `;
 

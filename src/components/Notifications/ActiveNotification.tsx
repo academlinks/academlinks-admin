@@ -2,7 +2,9 @@ import React from "react";
 
 import { useAppSelector } from "../../store/hooks";
 import { useUsersQuery } from "../../hooks";
+
 import { selectUsersOperationLoadingState } from "../../store/selectors/userSelectors";
+import { selectNotification } from "../../store/selectors/notificationSelectors";
 
 import { UserDetailsHeader, Spinner, Error } from "../Layouts";
 import { ActiveNotificationContainer } from "./notifications.styles";
@@ -11,6 +13,8 @@ const ActiveNotification: React.FC = () => {
   const { loading, error, message } = useAppSelector(
     selectUsersOperationLoadingState
   );
+
+  const notification = useAppSelector(selectNotification);
 
   const { deleteUserQuery, handleResetOperationError } = useUsersQuery();
 
@@ -28,21 +32,20 @@ const ActiveNotification: React.FC = () => {
 
       <UserDetailsHeader
         userDetails={{
-          _id: "some_id",
-          userName: "user name",
-          email: "useremail@io.com",
-          profileImg:
-            "https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png",
+          _id: notification?.from._id || "",
+          userName: notification?.from.userName || "",
+          email: notification?.from.email || "",
+          profileImg: notification?.from.profileImg || "",
         }}
         deleteUserHandler={deleteUserQuery}
       />
 
       <div className="notification-details--box">
         <p className="notification-message">
-          <strong className="userName">user name</strong>&nbsp;change email from
-          &nbsp;
-          <strong>useremail@io.com</strong>&nbsp;to&nbsp;
-          <strong>uemail@io.com</strong>
+          <strong className="userName">{notification?.from.userName}</strong>
+          &nbsp;{notification?.message} from &nbsp;
+          <strong>{notification?.options.oldEmail}</strong>&nbsp;to&nbsp;
+          <strong>{notification?.options.newEmail}</strong>
         </p>
       </div>
     </ActiveNotificationContainer>

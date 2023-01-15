@@ -41,3 +41,6 @@ export const selectGetNewCommercialAlert = ({ commercials }: RootStateT) =>
 
 export const selectComercialCreationStatus = ({ commercials }: RootStateT) =>
   commercials.commercialCreatedSuccessfully;
+
+export const selectEmailSuccessfullySend = ({ commercials }: RootStateT) =>
+  commercials.emailSuccessfullySent;

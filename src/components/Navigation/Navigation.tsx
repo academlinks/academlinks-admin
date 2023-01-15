@@ -1,11 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { nanoid } from "@reduxjs/toolkit";
 
 import { ThemeContext } from "../../Theme";
+import { IoContext } from "../../store/IoProvider";
 
-import { useAdminQuery } from "../../hooks";
+import {
+  useAdminQuery,
+  useRegistrationQuery,
+  useNotificationQuery,
+} from "../../hooks";
 import { useAppSelector } from "../../store/hooks";
 
 import { selectUnseenRequestsCount } from "../../store/selectors/registrationSelectors";
@@ -45,7 +50,17 @@ const navRoutes = [
 
 const Navigation: React.FC = () => {
   const { changeThemeHandler, mode } = useContext(ThemeContext);
+  const { socket, socket_name_placeholders } = useContext(IoContext);
+
+  const { pathname } = useLocation();
+
   const { logoutQuery, getAppBadgesQuery } = useAdminQuery();
+
+  const { handleEncreaseUnseenNotificationCount, handleSetNewNotification } =
+    useNotificationQuery();
+
+  const { setNewRegRequestHandler, handleEncreaseUnseenRegRequestCount } =
+    useRegistrationQuery();
 
   const unseenReqCount = useAppSelector(selectUnseenRequestsCount);
   const unseenNotifiesCount = useAppSelector(selectUnseenNotifiesCount);
@@ -56,6 +71,28 @@ const Navigation: React.FC = () => {
   useEffect(() => {
     getAppBadgesQuery();
   }, []);
+
+  useEffect(() => {
+    if (!socket) return;
+
+    if (pathname.includes("/notifications")) {
+      socket.on(socket_name_placeholders.userChangeEmail, (data) => {
+        handleSetNewNotification(data);
+      });
+    } else if (pathname.includes("registration-requests")) {
+      socket.on(socket_name_placeholders.newUserIsRegistered, (data) => {
+        setNewRegRequestHandler(data);
+      });
+    } else {
+      socket.on(socket_name_placeholders.newUserIsRegistered, () => {
+        handleEncreaseUnseenRegRequestCount();
+      });
+
+      socket.on(socket_name_placeholders.userChangeEmail, () => {
+        handleEncreaseUnseenNotificationCount();
+      });
+    }
+  }, [socket]);
 
   return (
     <Nav data-page-navigation>

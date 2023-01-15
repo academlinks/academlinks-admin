@@ -2,11 +2,17 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { AuthCredentialsT } from "../../interface/reducers/authReducer.types";
 
-const initialState = {
+interface StateT {
+  isAuthenticated: boolean;
+  adminId: string;
+}
+
+const initialState: StateT = {
   isAuthenticated: false,
+  adminId: "",
 };
 
-const authSlice = createSlice({
+const adminSlice = createSlice({
   name: "admin",
   initialState,
   reducers: {
@@ -14,7 +20,9 @@ const authSlice = createSlice({
 
     setAdmin(
       state,
-      { payload: { accessToken } }: PayloadAction<{ accessToken: string }>
+      {
+        payload: { accessToken, adminId },
+      }: PayloadAction<{ accessToken: string; adminId: string }>
     ) {
       localStorage.setItem(
         "academind_admin_passport",
@@ -22,16 +30,18 @@ const authSlice = createSlice({
       );
 
       state.isAuthenticated = true;
+      state.adminId = adminId;
     },
 
     logOut(state) {
       localStorage.removeItem("academind_admin_passport");
       state.isAuthenticated = false;
+      state.adminId = "";
     },
 
     getAppBadges() {},
   },
 });
 
-export default authSlice.reducer;
-export const { login, setAdmin, logOut, getAppBadges } = authSlice.actions;
+export default adminSlice.reducer;
+export const { login, setAdmin, logOut, getAppBadges } = adminSlice.actions;

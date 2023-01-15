@@ -10,6 +10,7 @@ export interface StateT {
   getNewCommercialAlert: GetNewCommercialAlert;
   commercialCreatedSuccessfully: null | boolean;
   outDatedCommercialsCount: OutdatedCommercialCountT;
+  emailSuccessfullySent: boolean;
 }
 
 interface LoadingStateT {
@@ -37,6 +38,12 @@ export interface CreateCommercialPropsT {
     page: "feed" | "blogPost";
     side: "left" | "right";
   };
+}
+
+export interface SendEmailPropsT {
+  email: string;
+  subject: string;
+  text: string;
 }
 
 export interface UpdateCommercialPropsT {

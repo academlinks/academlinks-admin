@@ -79,10 +79,54 @@ export const ActiveCommercialContainer = styled.article`
     margin: 1rem 0 0 1rem;
   }
 
-  .comemrcial-crud__btn {
+  .comemrcial-actions__btn-box {
     margin-left: auto;
     display: flex;
     align-items: center;
     gap: 2rem;
+  }
+
+  .send-email--to {
+    &::first-letter {
+      text-transform: capitalize;
+    }
+  }
+
+  .send-email--form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .email-text--field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      &__label {
+        text-transform: capitalize;
+        font-size: ${({ theme }) => theme.fontSizes.sm};
+        font-weight: ${({ theme }) => theme.font.medium};
+      }
+
+      &__textarea {
+        resize: none;
+        font-style: inherit;
+        outline: none;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        &::placeholder {
+          text-transform: capitalize;
+        }
+      }
+    }
+  }
+
+  .email-is--send__msg {
+    text-align: center;
   }
 `;

@@ -9,6 +9,7 @@ import {
   GetCommercialPropsT,
   DeleteCommercialPropsT,
   OutdatedCommercialCountT,
+  SendEmailPropsT,
 } from "../../interface/reducers/commercialReducer.types";
 
 import { CommercialT } from "../../interface/db/commercial.types";
@@ -47,6 +48,8 @@ const initialState: StateT = {
   commercialCreatedSuccessfully: null,
 
   outDatedCommercialsCount: 0,
+
+  emailSuccessfullySent: false,
 };
 
 const CommercialSlcie = createSlice({
@@ -249,6 +252,12 @@ const CommercialSlcie = createSlice({
       state.outDatedCommercialsCount = payload;
     },
 
+    sendEmail(state, { payload }: PayloadAction<SendEmailPropsT>) {},
+
+    setEmailSuccessfullySend(state, { payload }: PayloadAction<boolean>) {
+      state.emailSuccessfullySent = payload;
+    },
+
     /////SECTION: Dom Manipulation And Reset Helpers /////
 
     setCommercialTargetKey(
@@ -298,6 +307,8 @@ export const {
   deleteCommercial,
   setDeletedCommercial,
   setOutDatedCommercialsCount,
+  sendEmail,
+  setEmailSuccessfullySend,
   /////////////////////////////////////
   ///// Dom Manipulation And Reset Helpers /////
   ///////////////////////////////////

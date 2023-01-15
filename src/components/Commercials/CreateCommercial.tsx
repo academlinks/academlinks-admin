@@ -33,10 +33,7 @@ const CreateCommercial: React.FC = () => {
     selectCommercialOperationLoadingState
   );
 
-  const isLinkableRef = useRef<HTMLInputElement>(null);
   const [isLinkable, setIsLinkable] = useState(false);
-  const handleLinkable = () =>
-    isLinkableRef.current && setIsLinkable(isLinkableRef.current.checked);
 
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -81,12 +78,7 @@ const CreateCommercial: React.FC = () => {
   }
 
   useEffect(() => {
-    if (
-      updateCredentials &&
-      updateCredentials.isLinkable &&
-      isLinkableRef.current
-    ) {
-      isLinkableRef.current.checked = true;
+    if (updateCredentials && updateCredentials.isLinkable) {
       setIsLinkable(true);
     }
   }, [updateCredentials]);
@@ -126,6 +118,34 @@ const CreateCommercial: React.FC = () => {
         defaultValue={
           updateCredentials && updateCredentials.client
             ? updateCredentials.client
+            : ""
+        }
+      />
+
+      <Input
+        placeholder="client email"
+        label="email"
+        id="email"
+        error={false}
+        message="some error msg here"
+        name="email"
+        defaultValue={
+          updateCredentials && updateCredentials.email
+            ? updateCredentials.email
+            : ""
+        }
+      />
+
+      <Input
+        placeholder="client phone number"
+        label="phone number"
+        id="phoneNumber"
+        error={false}
+        message="some error msg here"
+        name="phone"
+        defaultValue={
+          updateCredentials && updateCredentials.phone
+            ? updateCredentials.phone
             : ""
         }
       />
@@ -181,12 +201,13 @@ const CreateCommercial: React.FC = () => {
       />
 
       <div data-input-field-container className="linkable-field">
-        <div
-          className="linkable-field__labelBox"
-          data-input-field-label
-          onClick={handleLinkable}
-        >
-          <input type="checkbox" id="isLinkable" ref={isLinkableRef} />
+        <div className="linkable-field__labelBox" data-input-field-label>
+          <input
+            type="checkbox"
+            id="isLinkable"
+            checked={isLinkable}
+            onChange={(e) => setIsLinkable(e.target.checked)}
+          />
           <label htmlFor="isLinkable">is linkable</label>
         </div>
 

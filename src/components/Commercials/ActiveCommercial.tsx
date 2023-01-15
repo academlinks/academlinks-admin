@@ -1,30 +1,61 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useRef, useEffect } from "react";
 
 import { useAppSelector } from "../../store/hooks";
 
-import { formatDate } from "../../lib";
 import {
   selectCommercial,
   selectCommercialOperationLoadingState,
+  selectEmailSuccessfullySend,
 } from "../../store/selectors/commercialSelectors";
-import { useCommercialQuery } from "../../hooks";
+import { useCommercialQuery, useCommercials } from "../../hooks";
 
+import { Spinner, Error } from "../Layouts";
+import ActiveCommercialDetails from "./components/ActiveCommercialDetails";
+import ActiveCommercialActionBTNs from "./components/ActiveCommercialActionBTNs";
+import EmailForm from "./components/EmailForm";
 import { ActiveCommercialContainer } from "./commercial.styled";
-import { Button, Spinner, Error } from "../Layouts";
 
 const ActiveCommercial: React.FC = () => {
-  const navigate = useNavigate();
-
   const commercial = useAppSelector(selectCommercial);
 
   const { loading, error, message } = useAppSelector(
     selectCommercialOperationLoadingState
   );
 
-  const { deleteCommercialQuery, handleResetOperationError } =
+  const { deleteCommercialQuery, handleResetOperationError, sendEmailQuery } =
     useCommercialQuery();
+
+  const emailSuccessfullySend = useAppSelector(selectEmailSuccessfullySend);
+  const { handleEmailSuccessfullySend } = useCommercials();
+
+  const [sendEmailToCustomer, setSendEmailToCustomer] = useState(false);
+  const emailFormRef = useRef<HTMLFormElement>(null);
+
+  function handleEmail() {
+    const formData = new FormData(emailFormRef.current!);
+    const emailForm: any = {};
+
+    for (const [key, value] of formData) {
+      emailForm[key] = value;
+    }
+
+    commercial?.email &&
+      sendEmailQuery({ ...emailForm, email: commercial.email });
+  }
+
+  useEffect(() => {
+    if (!emailSuccessfullySend) return;
+
+    emailFormRef.current?.reset();
+
+    const timer = setInterval(() => {
+      handleEmailSuccessfullySend(false);
+      setSendEmailToCustomer(false);
+    }, 3000);
+
+    return () => clearInterval(timer);
+  }, [emailSuccessfullySend]);
 
   return (
     <>
@@ -41,60 +72,25 @@ const ActiveCommercial: React.FC = () => {
       <ActiveCommercialContainer>
         {commercial && (
           <>
-            <figure className="commercial-fig">
-              <img src={commercial.media} alt={commercial.client} />
-            </figure>
+            {!sendEmailToCustomer && (
+              <ActiveCommercialDetails commercial={commercial} />
+            )}
 
-            <div className="commercial-details">
-              <p>
-                Client: <span>{commercial.client}</span>
-              </p>
-              <p>
-                Valid until:{" "}
-                <span>
-                  {formatDate(new Date(commercial.validUntil), "verbal")}
-                </span>
-              </p>
-              <p>
-                Position on:{" "}
-                <span>
-                  <span>{commercial.location.page}</span>{" "}
-                  <span>{commercial.location.side}</span> bar
-                </span>
-              </p>
-              <p>
-                Created at:{" "}
-                <span>
-                  {formatDate(new Date(commercial.createdAt), "verbal")}
-                </span>
-              </p>
-              <p>
-                Last update:{" "}
-                <span>
-                  {formatDate(new Date(commercial.updatedAt), "verbal")}
-                </span>
-              </p>
-            </div>
+            {sendEmailToCustomer && (
+              <EmailForm
+                ref={emailFormRef}
+                adressat={commercial.email}
+                emailSuccessfullySend={emailSuccessfullySend}
+              />
+            )}
 
-            <div className="comemrcial-crud__btn">
-              <Button
-                label="update"
-                task="aprove"
-                onClick={() =>
-                  navigate("/dashboard/commercials/create", {
-                    replace: true,
-                    state: { commercial, operation: "update" },
-                  })
-                }
-              />
-              <Button
-                label="delete"
-                task="delete"
-                onClick={() =>
-                  deleteCommercialQuery({ commercialId: commercial._id })
-                }
-              />
-            </div>
+            <ActiveCommercialActionBTNs
+              commercial={commercial}
+              deleteCommercialQuery={deleteCommercialQuery}
+              sendEmailToCustomer={sendEmailToCustomer}
+              setSendEmailToCustomer={setSendEmailToCustomer}
+              handleEmail={handleEmail}
+            />
           </>
         )}
       </ActiveCommercialContainer>

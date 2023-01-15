@@ -5,6 +5,7 @@ import {
   GetCommercialsPropsT,
   GetCommercialPropsT,
   DeleteCommercialPropsT,
+  SendEmailPropsT,
 } from "../../../interface/reducers/commercialReducer.types";
 
 export async function createCommercialQuery(body: CreateCommercialPropsT) {
@@ -35,4 +36,8 @@ export async function getCommercialQuery({
   commercialId,
 }: GetCommercialPropsT) {
   return await axiosQuery(`/administration/commercials/${commercialId}`);
+}
+
+export async function sendEmailQuery(body: SendEmailPropsT) {
+  return await axiosQuery.post("/administration/commercials/customer", body);
 }

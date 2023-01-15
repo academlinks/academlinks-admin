@@ -217,6 +217,10 @@ const RegistrationSlice = createSlice({
       state.registrationLabels = [payload, ...state.registrationLabels];
     },
 
+    encreaseUnseenRegRequestsCount(state) {
+      state.registrationCounts = state.registrationCounts += 1;
+    },
+
     ///// SECTION: Dom Manipulation And Trigerer Helpers /////
 
     setFilterKey(state, { payload }: PayloadAction<FilterKeyT>) {
@@ -248,6 +252,7 @@ export const {
   deleteRequest,
   setUnseenRegRequestsQount,
   setNewRegRequest,
+  encreaseUnseenRegRequestsCount,
   aproveRequest,
 } = RegistrationSlice.actions;
 

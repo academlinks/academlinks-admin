@@ -75,7 +75,8 @@ const CommercialSideBarNav: React.FC = () => {
             navigate("/dashboard/commercials?outdated=true");
           }}
         />
-        {outdatedCommercialsCount && outdatedCommercialsCount > 0 && (
+
+        {outdatedCommercialsCount > 0 && (
           <span className="outdated-commercials--btn__box-badge">
             {outdatedCommercialsCount}
           </span>
@@ -91,6 +92,7 @@ const CommercialSideBarNav: React.FC = () => {
           navigate("/dashboard/commercials?all=true");
         }}
       />
+
       <Button
         className="commercials-target-btn"
         label="create commercial"

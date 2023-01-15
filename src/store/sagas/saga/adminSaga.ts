@@ -4,7 +4,7 @@ import {
   login,
   logOut,
   getAppBadges,
-} from "../../reducers/authenticationReducer";
+} from "../../reducers/adminReducer";
 
 import {
   loginHandler,

@@ -7,6 +7,9 @@ import {
   deleteNotification,
   markNotificationsAsSeen,
   markNotificationAsRead,
+  resetOperationError,
+  encreaseUnseenNotificationCount,
+  setNewNotificationInList,
 } from "../../store/reducers/notificationReducer";
 
 import {
@@ -14,6 +17,8 @@ import {
   DeleteNotificationT,
   MarkNotificationAsReadT,
 } from "../../interface/reducers/notificationReducer.types";
+
+import { NotificationT } from "../../interface/db/notification.types";
 
 export default function useNotificationQuery() {
   const dispatch = useAppDispatch();
@@ -42,6 +47,18 @@ export default function useNotificationQuery() {
     dispatch(markNotificationAsRead(params));
   }
 
+  function resetNotificationOperationErrorHandler() {
+    dispatch(resetOperationError());
+  }
+
+  function handleEncreaseUnseenNotificationCount() {
+    dispatch(encreaseUnseenNotificationCount());
+  }
+
+  function handleSetNewNotification(param: NotificationT) {
+    dispatch(setNewNotificationInList(param));
+  }
+
   return {
     getNotificationQuery,
     getNotificationsQuery,
@@ -49,5 +66,8 @@ export default function useNotificationQuery() {
     deleteAllNotificationsQuery,
     markNotificationsAsSeenQuery,
     markNotificationAsReadQuery,
+    resetNotificationOperationErrorHandler,
+    handleEncreaseUnseenNotificationCount,
+    handleSetNewNotification,
   };
 }

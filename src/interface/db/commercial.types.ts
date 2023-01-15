@@ -1,6 +1,8 @@
 export interface CommercialT {
   _id: string;
   client: string;
+  email: string;
+  phone: string;
   validUntil: string;
   isLinkable: boolean;
   link?: string;
