@@ -6,6 +6,7 @@ import { AppStyles } from "./styles/App.styles";
 
 interface ContextT {
   changeThemeHandler: () => void;
+  mode: Mode;
 }
 
 interface ProviderT {
@@ -14,6 +15,7 @@ interface ProviderT {
 
 export const ThemeContext = createContext<ContextT>({
   changeThemeHandler: () => {},
+  mode: "light",
 });
 
 const Theme: React.FC<ProviderT> = ({ children }) => {
@@ -42,7 +44,7 @@ const Theme: React.FC<ProviderT> = ({ children }) => {
   }, [mode, isMounting]);
 
   return (
-    <ThemeContext.Provider value={{ changeThemeHandler }}>
+    <ThemeContext.Provider value={{ changeThemeHandler, mode }}>
       <ThemeProvider
         theme={
           mode === "dark"
