@@ -38,6 +38,8 @@ export interface CreateCommercialPropsT {
     page: "feed" | "blogPost";
     side: "left" | "right";
   };
+  email: string;
+  phone: string;
 }
 
 export interface SendEmailPropsT {

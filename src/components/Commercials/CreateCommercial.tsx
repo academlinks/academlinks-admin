@@ -62,6 +62,8 @@ const CreateCommercial: React.FC = () => {
           validUntil: commercialForm.validUntil,
           page: commercialForm.page,
           side: commercialForm.side,
+          email: commercialForm.email,
+          phone: commercialForm.phone,
         },
       });
     } else {
@@ -73,6 +75,8 @@ const CreateCommercial: React.FC = () => {
         validUntil: commercialForm.validUntil,
         page: commercialForm.page,
         side: commercialForm.side,
+        email: commercialForm.email,
+        phone: commercialForm.phone,
       });
     }
   }

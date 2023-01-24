@@ -35,6 +35,8 @@ export default function useCommercialQuery() {
       media: params.media,
       isLinkable: params.link ? true : false,
       validUntil: params.validUntil,
+      email: params.email,
+      phone: params.phone,
       location: {
         page: params.page,
         side: params.side,

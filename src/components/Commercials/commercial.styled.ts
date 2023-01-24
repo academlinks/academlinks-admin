@@ -62,7 +62,7 @@ export const ActiveCommercialContainer = styled.article`
 
   .commercial-fig {
     width: 100%;
-    aspect-ratio: 16/9;
+    height: 50rem;
 
     img {
       width: 100%;
