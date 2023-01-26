@@ -16,5 +16,5 @@ export async function getUserDetailsQuery(params: GetUserDetailsPropsT) {
 }
 
 export async function deleteUserQuery({ userId }: DeleteUserPropsT) {
-  return await axiosQuery.delete(`/user/${userId}`);
+  return await axiosQuery.post(`/user/${userId}/delete-account`);
 }
