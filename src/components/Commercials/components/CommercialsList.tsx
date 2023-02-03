@@ -7,7 +7,7 @@ import {
   selectCommercialSideBarLoadingState,
   selectCommercialsList,
 } from "../../../store/selectors/commercialSelectors";
-import { formatDate } from "../../../lib";
+import { formatDate, extractRootEndPointFromImg } from "../../../lib";
 
 import { CommercialsListContainer } from "./commercialsList.styles";
 import { Spinner, Error } from "../../Layouts";
@@ -36,7 +36,10 @@ const CommercialsList: React.FC = () => {
             key={commercial._id}
           >
             <figure className="commercial-item__fig">
-              <img src={commercial.media} alt={commercial.client} />
+              <img
+                src={extractRootEndPointFromImg(commercial.media)}
+                alt={commercial.client}
+              />
             </figure>
             <div className="commercial-item__details">
               <p>

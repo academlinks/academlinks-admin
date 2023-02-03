@@ -1,4 +1,5 @@
 import React from "react";
+import { extractRootEndPointFromImg } from "../../lib";
 
 import { MediaModalContainer } from "./mediaModal.styles";
 import { MdClose } from "react-icons/md";
@@ -28,7 +29,7 @@ const MediaModal: React.FC<MediaModalType> = ({ fig, alt, onClose }) => {
           <MdClose />
         </button>
         <figure className="media-modal__fig">
-          <img src={fig} alt={alt || ""} />
+          <img src={extractRootEndPointFromImg(fig)} alt={alt || ""} />
         </figure>
       </div>
     </MediaModalContainer>

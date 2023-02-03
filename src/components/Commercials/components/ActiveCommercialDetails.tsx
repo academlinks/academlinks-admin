@@ -1,4 +1,5 @@
 import React from "react";
+import { extractRootEndPointFromImg } from "../../../lib";
 
 import { formatDate } from "../../../lib";
 import { CommercialT } from "../../../interface/db/commercial.types";
@@ -13,7 +14,10 @@ const ActiveCommercialDetails: React.FC<ActiveCommercialDetailsType> = ({
   return (
     <>
       <figure className="commercial-fig">
-        <img src={commercial.media} alt={commercial.client} />
+        <img
+          src={extractRootEndPointFromImg(commercial.media)}
+          alt={commercial.client}
+        />
       </figure>
 
       <div className="commercial-details">

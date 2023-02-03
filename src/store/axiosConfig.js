@@ -1,5 +1,6 @@
 import axioss from "axios";
 import decode from "jwt-decode";
+import { getAPI_EndPoint } from "../lib/config";
 
 function getJWT() {
   return localStorage.getItem("academind_admin_passport")
@@ -8,18 +9,18 @@ function getJWT() {
 }
 
 const refresher = axioss.create({
-  baseURL: `${process.env.REACT_APP_API_END_POINT}/authentication/refresh`,
+  baseURL: `${getAPI_EndPoint()}/authentication/refresh`,
   withCredentials: true,
   method: "GET",
 });
 
 export const axiosQuery = axioss.create({
-  baseURL: process.env.REACT_APP_API_END_POINT,
+  baseURL: getAPI_EndPoint(),
   withCredentials: true,
 });
 
 export const axiosFormDataQuery = axioss.create({
-  baseURL: process.env.REACT_APP_API_END_POINT,
+  baseURL: getAPI_EndPoint(),
   withCredentials: true,
   headers: {
     "content-type": "multipart/form-data",
@@ -27,7 +28,7 @@ export const axiosFormDataQuery = axioss.create({
 });
 
 export const axios = axioss.create({
-  baseURL: process.env.REACT_APP_API_END_POINT,
+  baseURL: getAPI_EndPoint(),
 });
 
 let refreshTokenPromise;
@@ -48,10 +49,17 @@ function tokenExchange({ config }) {
 
   if (Math.floor(Date.now() / 1000) > exp) {
     if (!refreshTokenPromise)
-      refreshTokenPromise = refresher().then(({ data }) => {
-        refreshTokenPromise = null;
-        return data.accessToken;
-      });
+      refreshTokenPromise = refresher()
+        .then(({ data }) => {
+          refreshTokenPromise = null;
+          return data.accessToken;
+        })
+        .catch((err) => {
+          if (err.response.status === 401)
+            localStorage.removeItem("academind_admin_passport");
+          refreshTokenPromise = null;
+          return "";
+        });
 
     return refreshTokenPromise.then((token) => {
       localStorage.setItem("academind_admin_passport", JSON.stringify(token));

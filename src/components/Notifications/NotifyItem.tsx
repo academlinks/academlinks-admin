@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
+import { extractRootEndPointFromImg } from "../../lib";
+
 import { BsThreeDots } from "react-icons/bs";
 
 import { NotificationT } from "../../interface/db/notification.types";
@@ -26,7 +28,10 @@ const NotifyItem: React.FC<NotifyItemType> = ({
       }
     >
       <figure className="notify-item__fig">
-        <img src={notify.from.profileImg} alt={notify.from.userName} />
+        <img
+          src={extractRootEndPointFromImg(notify.from.profileImg)}
+          alt={notify.from.userName}
+        />
       </figure>
 
       <div className="notify-item__details">

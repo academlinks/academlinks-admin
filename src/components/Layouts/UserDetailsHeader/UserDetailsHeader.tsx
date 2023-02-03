@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { extractRootEndPointFromImg } from "../../../lib";
 
 import { Button } from "..";
 import MediaModal from "./MediaModal";
@@ -37,7 +38,10 @@ const UserDetailsHeader: React.FC<UserDetailsHeaderType> = ({
             setOpenMedia(true);
           }}
         >
-          <img src={userDetails.profileImg} alt={userDetails.userName} />
+          <img
+            src={extractRootEndPointFromImg(userDetails.profileImg)}
+            alt={userDetails.userName}
+          />
         </figure>
 
         <span className="details-header__userName">{userDetails.userName}</span>

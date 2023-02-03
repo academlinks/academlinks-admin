@@ -1,5 +1,6 @@
 import React, { createContext, useState } from "react";
 import { io, Socket } from "socket.io-client";
+import { getAPI_Origin } from "../lib/config";
 
 interface IoProviderT {
   children: React.ReactNode;
@@ -36,9 +37,9 @@ const IoProvider: React.FC<IoProviderT> = ({ children }) => {
   const [socket, setSocket] = useState<Socket>();
 
   async function establishIoConnection() {
-    const HOST = process.env.REACT_APP_API_END_POINT_HOST;
+    const HOST = getAPI_Origin();
 
-    const socketIo = HOST ? io(HOST) : null;
+    const socketIo = HOST ? io(HOST, { transports: ["websocket"] }) : null;
     socketIo && setSocket(socketIo);
 
     return socketIo;

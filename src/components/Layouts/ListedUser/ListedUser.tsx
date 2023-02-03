@@ -1,6 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
+import { extractRootEndPointFromImg } from "../../../lib";
+
 import { ListedUserContainer } from "./listedUser.styles";
 
 interface ListedUserType {
@@ -33,15 +35,13 @@ const ListedUser: React.FC<ListedUserType> = ({
                 ? `/assets/avatars/avatar-${
                     gender === "male" ? "male" : "female"
                   }.webp`
-                : fig
+                : extractRootEndPointFromImg(fig)
             }
             alt={`avatar ${fig === "default" ? gender : userName}`}
           />
         </figure>
         <div className="listed-user--details">
-          <span className="listed-user--details__userName">
-            {userName}
-          </span>
+          <span className="listed-user--details__userName">{userName}</span>
           <span className="listed-user--details__email">{email}</span>
         </div>
       </NavLink>
