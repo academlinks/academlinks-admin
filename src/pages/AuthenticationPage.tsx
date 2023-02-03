@@ -8,11 +8,9 @@ import { Button } from "../components/Layouts";
 
 import { useAdminQuery } from "../hooks";
 
-interface AuthenticationType {}
-
-const AuthenticationPage: React.FC<AuthenticationType> = (props) => {
-  const [userName, setUserName] = useState("admin_mark");
-  const [password, setPassword] = useState("sh12mk3tt_7xxAdmin");
+const AuthenticationPage: React.FC = () => {
+  const [userName, setUserName] = useState<string>();
+  const [password, setPassword] = useState<string>();
 
   const { loginQuery } = useAdminQuery();
 
