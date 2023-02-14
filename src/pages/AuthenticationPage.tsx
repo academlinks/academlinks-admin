@@ -5,16 +5,19 @@ import {
   Input,
 } from "../components/Authentication/authentication.styles";
 import { Button } from "../components/Layouts";
+import { AiFillEye } from "react-icons/ai";
 
 import { useAdminQuery } from "../hooks";
 
 const AuthenticationPage: React.FC = () => {
-  const [userName, setUserName] = useState<string>();
-  const [password, setPassword] = useState<string>();
+  const [userName, setUserName] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [passwordFieldType, setPasswordFieldType] = useState<
+    "password" | "text"
+  >("password");
 
   const { loginQuery } = useAdminQuery();
 
-  // Input Handlers
   const [userNameError, setUserNameError] = useState({
     error: false,
     message: "",
@@ -45,7 +48,6 @@ const AuthenticationPage: React.FC = () => {
     setPassword(e.target.value);
   }
 
-  // Submit
   function handleSignIn(e: React.FormEvent) {
     e.preventDefault();
 
@@ -86,14 +88,28 @@ const AuthenticationPage: React.FC = () => {
           )}
         </div>
         <div>
-          <Input
-            onChange={handlePassword}
-            value={password}
-            error={passwordError.error}
-            type="password"
-            placeholder="password"
-            className="inp-field"
-          />
+          <div className="password-field">
+            <Input
+              onChange={handlePassword}
+              name="password"
+              value={password}
+              error={passwordError.error}
+              type={passwordFieldType}
+              placeholder="password"
+              className="inp-field"
+            />
+            <button
+              className="eye-btn"
+              onClick={(e) => {
+                e.preventDefault();
+                setPasswordFieldType((prev) =>
+                  prev === "password" ? "text" : "password"
+                );
+              }}
+            >
+              <AiFillEye />
+            </button>
+          </div>
           {passwordError.error && (
             <p className="error-msg">{passwordError.message}</p>
           )}

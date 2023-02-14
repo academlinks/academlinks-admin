@@ -215,6 +215,7 @@ const RegistrationSlice = createSlice({
 
     setNewRegRequest(state, { payload }: PayloadAction<RegistrationLabelsT>) {
       state.registrationLabels = [payload, ...state.registrationLabels];
+      state.registrationCounts = state.registrationCounts += 1;
     },
 
     encreaseUnseenRegRequestsCount(state) {

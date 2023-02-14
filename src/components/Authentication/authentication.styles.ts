@@ -9,8 +9,6 @@ export const AuthenticationContainer = styled.section`
   .authentication-form {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     gap: 1.5rem;
   }
 
@@ -19,10 +17,27 @@ export const AuthenticationContainer = styled.section`
     padding: 0 0.5rem;
     border-radius: 0.5rem;
     color: ${({ theme }) => theme.colors.darkGray};
+    border: 1px solid
+      ${({ theme }) => (theme.mode === "dark" ? "" : theme.colors.txt)};
 
     &::placeholder {
       font-size: ${({ theme }) => theme.fontSizes.xsm};
     }
+  }
+
+  .password-field {
+    position: relative;
+  }
+
+  .eye-btn {
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    padding-right: 0.5rem;
   }
 
   .error-msg {

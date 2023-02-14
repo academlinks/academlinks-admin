@@ -50,7 +50,7 @@ export function generateFilterQuery(params: FilterT): string {
     }
 
     if (key === "position")
-      value && value !== "default" && queryArray.push(`position=${value}`);
+      value && value !== "default" && queryArray.push(`currentWorkplace=${value}`);
 
     if (key === "userName")
       value && queryArray.push(`userName[regex]=${value}`);
