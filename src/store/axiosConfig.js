@@ -55,8 +55,8 @@ function tokenExchange({ config }) {
           return data.accessToken;
         })
         .catch((err) => {
-          if (err.response.status === 401)
-            localStorage.removeItem("academind_admin_passport");
+          // if (err.response.status === 401)
+          //   localStorage.removeItem("academind_admin_passport");
           refreshTokenPromise = null;
           return "";
         });

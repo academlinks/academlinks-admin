@@ -38,6 +38,8 @@ export const AuthenticationContainer = styled.section`
     display: flex;
     align-items: center;
     padding-right: 0.5rem;
+    color: ${({ theme }) => theme.colors.darkGray};
+    font-size: 2rem;
   }
 
   .error-msg {
