@@ -21,6 +21,10 @@ export const RegistrationRequestsContainer = styled.article`
     display: flex;
     flex-direction: column;
     gap: ${({ theme }) => theme.spacers.md};
+
+    .count {
+      padding: 1rem 0.5rem;
+    }
   }
 
   .registration-detailed__wrapper {

@@ -22,18 +22,21 @@ const RequestsList: React.FC<RequestsListType> = (props) => {
 
       {error && <Error boxType="inline" message={message} />}
 
-      {!loading &&
-        !error &&
-        requests.map((user) => (
-          <ListedUser
-            key={user._id}
-            id={user._id}
-            userName={user.userName}
-            email={user.email}
-            fig="default"
-            gender={user.gender}
-          />
-        ))}
+      {!loading && !error && (
+        <>
+          <span className="count">Fixating {requests.length} Users</span>
+          {requests.map((user) => (
+            <ListedUser
+              key={user._id}
+              id={user._id}
+              userName={user.userName}
+              email={user.email}
+              fig="default"
+              gender={user.gender}
+            />
+          ))}
+        </>
+      )}
     </div>
   );
 };
