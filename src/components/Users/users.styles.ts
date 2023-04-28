@@ -17,7 +17,11 @@ export const UsersContainer = styled.article`
     max-height: calc(100vh - 20rem);
     min-height: 30rem;
     overflow: auto;
-    ${scrollBar}
+    ${scrollBar};
+
+    .count {
+      padding: 1rem 0.5rem;
+    }
   }
 
   .users-content--box {

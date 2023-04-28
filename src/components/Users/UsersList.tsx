@@ -50,6 +50,7 @@ const UsersList: React.FC = () => {
 
       {!loading && !error && (
         <div className="users-list">
+          <span className="count">Fixating {users.length} Users</span>
           {usersShalow.map((user, i) => (
             <ListedUser
               key={user._id}
